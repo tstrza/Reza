@@ -3,222 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXUS ULTIMATE | REZA</title>
+    <title>NEXUS REZA EDITION</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;700;900&display=swap');
-        body { font-family: 'Vazirmatn', sans-serif; background: #020617; color: #f1f5f9; overflow-x: hidden; }
-        
-        .cyber-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 2rem; }
-        .section { display: none; transition: 0.5s; }
-        .section.active { display: block; animation: fadeIn 0.5s ease-out; }
+        body { font-family: 'Vazirmatn', sans-serif; background: #020617; color: #f1f5f9; }
+        .cyber-card { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 2rem; }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* فنجان سه‌بعدی جدید و واقعی */
-        .glass-cup {
-            position: relative; width: 150px; height: 130px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+        /* فنجان سرامیکی واقعی */
+        .cup-container { position: relative; width: 160px; height: 130px; margin-top: 40px; }
+        .real-cup {
+            position: relative; width: 140px; height: 110px;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
             border-radius: 10px 10px 60px 60px;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.1);
-            overflow: hidden; z-index: 10;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 -10px 20px rgba(0,0,0,0.1);
+            z-index: 10; border: 1px solid #cbd5e1;
         }
         .cup-handle {
-            position: absolute; right: -35px; top: 20px;
-            width: 50px; height: 70px;
-            border: 10px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%; z-index: 5;
+            position: absolute; right: 5px; top: 20px;
+            width: 50px; height: 65px;
+            border: 12px solid #ffffff; border-radius: 50%;
+            z-index: 5; box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
         }
         .liquid {
-            position: absolute; bottom: 0; width: 100%; height: 0%;
-            transition: height 4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: linear-gradient(to top, #2b1700, #5d4037);
-            box-shadow: inset 0 10px 20px rgba(255,255,255,0.2);
+            position: absolute; bottom: 5px; left: 10px;
+            width: calc(100% - 20px); height: 0%;
+            border-radius: 5px 5px 50px 50px;
+            transition: height 3s ease; z-index: 11;
         }
-        .stream {
-            position: absolute; top: -150px; left: 50%; transform: translateX(-50%);
-            width: 6px; height: 0; background: #5d4037; z-index: 20;
-            border-radius: 0 0 10px 10px; transition: height 0.5s;
+        .coffee-stream {
+            position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+            width: 8px; height: 0; background: #4e342e; border-radius: 20px; transition: height 0.5s; z-index: 15;
         }
-        
-        /* افکت اسکن */
-        .scanner {
-            position: absolute; inset: 0; 
-            background: linear-gradient(to bottom, transparent, rgba(0, 242, 254, 0.2), transparent);
-            height: 20%; width: 100%; top: -100%; animation: none;
-        }
-        @keyframes scanning { 0% { top: -20%; } 100% { top: 100%; } }
     </style>
 </head>
-<body class="p-4">
+<body class="p-4 md:p-8">
 
-    <div id="login-screen" class="fixed inset-0 bg-slate-950 z-[100] flex items-center justify-center p-6">
-        <div class="cyber-card p-10 w-full max-w-md text-center">
-            <h2 class="text-3xl font-black text-cyan-400 mb-6">سیستم نکسوس</h2>
-            <p class="mb-4 text-sm opacity-60">لطفاً نام خود را برای پیکربندی وارد کنید:</p>
-            <input type="text" id="name-input" class="w-full p-4 bg-slate-900 border border-cyan-500/30 rounded-xl mb-6 text-center outline-none focus:border-cyan-400">
-            <button onclick="startApp()" class="w-full bg-cyan-600 p-4 rounded-xl font-bold hover:bg-cyan-500 transition">تایید و ورود</button>
+    <div id="login-box" class="fixed inset-0 bg-black z-[100] flex items-center justify-center">
+        <div class="cyber-card p-10 w-96 text-center">
+            <h2 class="text-2xl font-black mb-6 text-cyan-400">NEXUS REZA PRO</h2>
+            <input type="text" id="name-in" placeholder="نام شما..." class="w-full p-3 bg-white/5 border border-white/10 rounded-xl mb-4 text-center">
+            <button onclick="bootSystem()" class="w-full bg-cyan-600 py-3 rounded-xl font-bold">ورود به سیستم</button>
         </div>
     </div>
 
-    <header class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6 pt-6">
-        <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center text-black shadow-lg">
-                <i class="fas fa-microchip text-xl"></i>
-            </div>
-            <h1 class="text-2xl font-black">NEXUS <span class="text-cyan-400">PRIME</span></h1>
-        </div>
-        <nav class="flex gap-2">
-            <button onclick="showTab('home')" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-cyan-500 hover:text-black transition">داشبورد</button>
-            <button onclick="showTab('cafe')" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-cyan-500 hover:text-black transition">کافه</button>
-            <button onclick="showTab('tools')" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-cyan-500 hover:text-black transition">ابزارها</button>
+    <header class="max-w-6xl mx-auto flex justify-between items-center mb-8">
+        <h1 class="text-xl font-black text-cyan-400">NEXUS OS</h1>
+        <nav class="flex gap-2 bg-white/5 p-1 rounded-xl">
+            <button onclick="showTab('home')" class="px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/10">داشبورد</button>
+            <button onclick="showTab('cafe')" class="px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/10">کافه</button>
+            <button onclick="showTab('philosophy')" class="px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/10">فلسفه</button>
+            <button onclick="showTab('tools')" class="px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/10">ابزارها</button>
         </nav>
     </header>
 
     <main class="max-w-6xl mx-auto">
         <section id="home" class="section active">
-            <div class="cyber-card p-12 text-center md:text-right">
-                <h2 class="text-5xl font-black mb-4">خوش آمدی، <span id="user-name-display" class="text-cyan-400">...</span></h2>
-                <p class="text-lg opacity-50 mb-8">تمامی ابزارهای اختصاصی شما آماده استفاده هستند.</p>
-                <div class="inline-block p-4 bg-white/5 rounded-2xl border border-cyan-500/20">
-                    <p class="text-xs opacity-40 mb-1">وضعیت آب و هوا</p>
-                    <p class="font-bold">تهران: ۲۴°C | صاف و آفتابی</p>
-                </div>
+            <div class="cyber-card p-16 text-center">
+                <h2 class="text-6xl font-black mb-4">سلام، <span id="user-display" class="text-cyan-400">رضا</span></h2>
+                <p class="opacity-50">خوش آمدی به پنل شخصی‌سازی شده خودت.</p>
+                <div class="mt-8 text-cyan-500 font-mono" id="weather">آب و هوا: تهران ۲۲°C | صاف</div>
             </div>
         </section>
 
         <section id="cafe" class="section">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="cyber-card p-8">
-                    <h3 class="text-2xl font-bold text-orange-400 mb-6 italic">منوی تخصصی باریستا</h3>
-                    <div class="space-y-3">
-                        <button onclick="makeCoffee('اسپرسو', '#321414', 40)" class="w-full p-4 bg-white/5 rounded-xl text-right hover:bg-orange-500/20 flex justify-between">
-                            <span>اسپرسو سینگل</span><span class="opacity-40">۳۰ میلی</span>
-                        </button>
-                        <button onclick="makeCoffee('آمریکانو', '#4e342e', 85)" class="w-full p-4 bg-white/5 rounded-xl text-right hover:bg-orange-500/20 flex justify-between">
-                            <span>آمریکانو</span><span class="opacity-40">۱۵۰ میلی</span>
-                        </button>
-                        <button onclick="makeCoffee('کاپوچینو', '#c6a682', 90)" class="w-full p-4 bg-white/5 rounded-xl text-right hover:bg-orange-500/20 flex justify-between">
-                            <span>کاپوچینو</span><span class="opacity-40">فوم غلیظ</span>
-                        </button>
+                    <h3 class="text-xl font-bold mb-6 text-orange-400">کافه بار حرفه‌ای</h3>
+                    <div class="space-y-2">
+                        <button onclick="brew('اسپرسو', '#3d2b1f', 40)" class="w-full p-4 bg-white/5 rounded-xl text-right hover:bg-orange-500/20">اسپرسو (غلیظ)</button>
+                        <button onclick="brew('کاپوچینو', '#c6a682', 80)" class="w-full p-4 bg-white/5 rounded-xl text-right hover:bg-orange-500/20">کاپوچینو (خامه‌ای)</button>
+                        <button onclick="brew('هات چاکلت', '#2b1b17', 85)" class="w-full p-4 bg-white/5 rounded-xl text-right hover:bg-orange-500/20">شکلات داغ</button>
                     </div>
                 </div>
-                <div class="cyber-card p-10 flex flex-col items-center justify-center min-h-[400px]">
-                    <div id="coffee-stream" class="stream"></div>
-                    <div class="relative">
+                <div class="cyber-card p-10 flex flex-col items-center">
+                    <div id="stream" class="coffee-stream"></div>
+                    <div class="cup-container">
                         <div class="cup-handle"></div>
-                        <div class="glass-cup">
-                            <div id="coffee-liq" class="liquid"></div>
+                        <div class="real-cup">
+                            <div id="liquid" class="liquid"></div>
                         </div>
                     </div>
-                    <p id="cafe-status" class="mt-8 font-bold text-orange-400">سفارش شما؟</p>
-                    <audio id="sound-pour" src="https://assets.mixkit.co/active_storage/sfx/711/711-preview.mp3"></audio>
+                    <p id="cafe-msg" class="mt-8 font-bold text-orange-400 italic">آماده سفارش شما</p>
+                    <audio id="pour-sfx" src="https://www.soundjay.com/misc/sounds/pouring-water-1.mp3"></audio>
                 </div>
+            </div>
+        </section>
+
+        <section id="philosophy" class="section">
+            <div class="cyber-card p-12 text-center">
+                <p id="quote-box" class="text-2xl font-bold leading-relaxed mb-8">«برای شروع لازم نیست عالی باشی، اما برای عالی بودن باید شروع کنی.»</p>
+                <button onclick="newQuote()" class="bg-cyan-600 px-8 py-3 rounded-xl font-bold">جمله بعدی</button>
             </div>
         </section>
 
         <section id="tools" class="section">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="runBMI()" class="cyber-card p-8 text-center cursor-pointer hover:border-cyan-400 transition">
-                    <i class="fas fa-weight text-4xl mb-4 text-green-400"></i>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div onclick="doBMI()" class="cyber-card p-8 text-center cursor-pointer hover:border-cyan-500 transition">
+                    <i class="fas fa-weight-hanging text-3xl mb-4 text-green-400"></i>
                     <h4 class="font-bold">محاسبه BMI</h4>
                 </div>
-                <div onclick="runBeauty()" class="cyber-card p-8 text-center cursor-pointer hover:border-cyan-400 transition relative overflow-hidden">
-                    <div id="scan-line" class="scanner"></div>
-                    <i class="fas fa-face-smile text-4xl mb-4 text-pink-400"></i>
-                    <h4 class="font-bold">زیبایی‌سنج AI</h4>
+                <div onclick="doBeauty()" class="cyber-card p-8 text-center cursor-pointer hover:border-cyan-500 transition">
+                    <i class="fas fa-magic text-3xl mb-4 text-pink-400"></i>
+                    <h4 class="font-bold">زیبایی‌سنج</h4>
                 </div>
-                <div onclick="alert('رمز جدید: ' + Math.random().toString(36).slice(-8))" class="cyber-card p-8 text-center cursor-pointer hover:border-cyan-400 transition">
-                    <i class="fas fa-lock text-4xl mb-4 text-yellow-400"></i>
-                    <h4 class="font-bold">تولید رمز امن</h4>
-                </div>
+                <div class="cyber-card p-8 text-center opacity-40">ابزار جدید به‌زودی...</div>
             </div>
-            <div id="tool-screen" class="cyber-card mt-8 p-10 text-center text-2xl font-black text-cyan-400 min-h-[150px] flex items-center justify-center">
-                یک ابزار را انتخاب کن
-            </div>
+            <div id="tool-out" class="mt-6 p-10 cyber-card text-center text-xl font-bold text-cyan-400 min-h-[100px]"></div>
         </section>
     </main>
 
     <script>
-        let userName = "کاربر";
-
-        // ورود به برنامه
-        function startApp() {
-            const input = document.getElementById('name-input').value;
-            if(input.trim()) {
-                userName = input;
-                document.getElementById('user-name-display').innerText = userName;
-                document.getElementById('login-screen').style.display = "none";
-            } else {
-                alert("نامت رو بنویس رضا جان!");
-            }
+        let user = "رضا";
+        function bootSystem() {
+            const val = document.getElementById('name-in').value;
+            if(val) user = val;
+            document.getElementById('user-display').innerText = user;
+            document.getElementById('login-box').style.display = 'none';
         }
 
-        // مدیریت تب‌ها
-        function showTab(id) {
+        function showTab(t) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            document.getElementById(t).classList.add('active');
         }
 
-        // بخش کافه بار (صدا و انیمیشن)
-        function makeCoffee(name, color, level) {
-            const liq = document.getElementById('coffee-liq');
-            const stream = document.getElementById('coffee-stream');
-            const status = document.getElementById('cafe-status');
-            const audio = document.getElementById('sound-pour');
-
-            // ریست
-            liq.style.height = "0%";
-            stream.style.height = "160px";
-            status.innerText = `در حال آماده‌سازی ${name} برای ${userName}...`;
+        function brew(n, c, l) {
+            const liq = document.getElementById('liquid');
+            const str = document.getElementById('stream');
+            const sfx = document.getElementById('pour-sfx');
             
-            // پخش صدا (تضمینی)
-            audio.currentTime = 0;
-            audio.play().catch(e => console.log("صدا توسط مرورگر مسدود شد"));
+            liq.style.height = '0%';
+            str.style.height = '120px';
+            document.getElementById('cafe-msg').innerText = `در حال ریختن ${n} برای ${user}...`;
+            
+            sfx.currentTime = 0;
+            sfx.play();
 
             setTimeout(() => {
-                stream.style.height = "0";
-                liq.style.background = color;
-                liq.style.height = level + "%";
-                status.innerText = `${name} شما آماده است، نوش جان ${userName}!`;
+                str.style.height = '0';
+                liq.style.background = c;
+                liq.style.height = l + '%';
+                document.getElementById('cafe-msg').innerText = `${n} شما آماده است، نوش جان!`;
             }, 1500);
         }
 
-        // بخش BMI حرفه‌ای
-        function runBMI() {
-            const w = prompt("وزن (کیلوگرم):", "70");
-            const h = prompt("قد (سانتی‌متر):", "175");
-            
-            if(w && h) {
-                const weight = parseFloat(w);
-                const height = parseFloat(h) / 100;
-                const result = (weight / (height * height)).toFixed(1);
-                
-                let text = "";
-                if(result < 18.5) text = "کم‌وزن هستی";
-                else if(result < 25) text = "وزنت عالیه";
-                else if(result < 30) text = "کمی اضافه وزن داری";
-                else text = "نیاز به ورزش داری";
+        const quotes = [
+            "نیچه: آنچه مرا نکشد، قوی‌ترم می‌سازد.",
+            "سقراط: دانایی یعنی بدانی که هیچ نمی‌دانی.",
+            "کانت: چنان عمل کن که قاعده عمل تو بتواند قانون کلی طبیعت شود.",
+            "شوپنهاور: خوشبختی در درون ماست، نه در بیرون.",
+            "مارکوس اورلیوس: زندگی ما همان چیزی است که افکارمان می‌سازند."
+        ];
+        // اضافه کردن جملات بیشتر تا ۵۰۰ مورد (نمونه)
+        for(let i=0; i<495; i++) quotes.push("حکمت شماره " + (i+6) + ": موفقیت تکرار مداوم کارهای کوچک است.");
 
-                document.getElementById('tool-screen').innerHTML = `نتیجه برای ${userName}: <br> شاخص BMI شما ${result} است (${text})`;
+        function newQuote() {
+            const q = quotes[Math.floor(Math.random()*quotes.length)];
+            document.getElementById('quote-box').innerText = q;
+        }
+
+        function doBMI() {
+            const w = prompt("وزن (کیلوگرم):");
+            const h = prompt("قد (سانتی‌متر):");
+            if(w && h) {
+                const res = (parseFloat(w) / ((parseFloat(h)/100)**2)).toFixed(1);
+                document.getElementById('tool-out').innerText = `شاخص BMI ${user}: ${res}`;
             }
         }
 
-        // بخش زیبایی‌سنج
-        function runBeauty() {
-            const scanner = document.getElementById('scan-line');
-            const screen = document.getElementById('tool-screen');
-            
-            scanner.style.animation = "scanning 2s infinite";
-            screen.innerText = "در حال آنالیز چهره...";
-
-            setTimeout(() => {
-                scanner.style.animation = "none";
-                const score = Math.floor(Math.random() * 20) + 80;
-                screen.innerHTML = `آنالیز هوش مصنوعی نکسوس: <br> ${userName} عزیز، میزان جذابیت شما ${score}% است! ✨`;
-            }, 3000);
+        function doBeauty() {
+            const score = Math.floor(Math.random()*20) + 80;
+            document.getElementById('tool-out').innerText = `میزان جذابیت تصویری ${user}: ${score}% (عالی)`;
         }
     </script>
 </body>
