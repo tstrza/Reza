@@ -3,53 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REZA NEXUS ULTIMATE OS</title>
+    <title>SINA NEXUS X | نکسوس نسخه نهایی</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;700;900&display=swap');
         
         :root {
-            --primary: #00f2fe; --bg: #020617; --card: rgba(15, 23, 42, 0.8); --text: #f1f5f9;
+            --bg: #020617; --card: rgba(15, 23, 42, 0.9); --text: #f1f5f9; --accent: #00f2fe;
         }
         .light-mode {
-            --primary: #0284c7; --bg: #f8fafc; --card: rgba(255, 255, 255, 0.9); --text: #0f172a;
+            --bg: #f8fafc; --card: rgba(255, 255, 255, 0.9); --text: #0f172a; --accent: #0284c7;
         }
 
-        body { font-family: 'Vazirmatn', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; overflow-x: hidden; }
-        .cyber-card { background: var(--card); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 254, 0.1); border-radius: 1.5rem; }
-        .active-tab { background: var(--primary) !important; color: #000 !important; box-shadow: 0 0 15px var(--primary); }
-        .section { display: none; animation: slideUp 0.5s ease; }
-        .section.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        body { font-family: 'Vazirmatn', sans-serif; background: var(--bg); color: var(--text); transition: 0.3s; min-height: 100vh; }
+        .cyber-card { background: var(--card); backdrop-filter: blur(10px); border: 1px solid rgba(0, 242, 254, 0.2); border-radius: 1.5rem; }
+        .nav-active { background: var(--accent) !important; color: #000 !important; box-shadow: 0 0 15px var(--accent); }
+        .section { display: none; }
+        .section.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* کافه - انیمیشن مایع */
-        .liquid { transition: height 2s ease, background 1s; }
-        .steam { animation: steamUp 2s infinite; opacity: 0; }
-        @keyframes steamUp { 0% { transform: translateY(0) scale(1); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(-40px) scale(1.5); opacity: 0; } }
+        .liquid-fill { transition: height 2s cubic-bezier(0.4, 0, 0.2, 1), background 1s; }
+        .steam-anim { animation: steamUp 2s infinite; opacity: 0; }
+        @keyframes steamUp { 0% { transform: translateY(0); opacity: 0; } 50% { opacity: 0.5; } 100% { transform: translateY(-40px); opacity: 0; } }
     </style>
 </head>
-<body class="p-2 md:p-6">
+<body class="p-4 md:p-6">
 
-    <header class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center mb-8 gap-4 cyber-card p-4">
+    <header class="max-w-7xl mx-auto cyber-card p-4 mb-8 flex flex-col lg:flex-row justify-between items-center gap-4">
         <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center shadow-[0_0_15px_#06b6d4]">
-                <i class="fas fa-microchip text-black text-xl"></i>
+            <div class="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center text-black shadow-lg">
+                <i class="fas fa-bolt text-xl"></i>
             </div>
-            <div>
-                <h1 class="text-xl font-black italic">NEXUS <span class="text-cyan-400 uppercase">Ultimate</span></h1>
-                <p id="live-clock" class="text-[10px] font-mono opacity-60 uppercase tracking-tighter"></p>
-            </div>
+            <h1 class="text-xl font-black tracking-tight">NEXUS <span class="text-cyan-500">ULTRA</span></h1>
         </div>
 
-        <nav class="flex flex-wrap justify-center gap-2">
-            <button onclick="showS('home')" id="nav-home" class="nav-btn active-tab px-4 py-2 rounded-lg text-xs font-bold">داشبورد</button>
-            <button onclick="showS('cafe')" id="nav-cafe" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/5">کافه نکسوس</button>
-            <button onclick="showS('psych')" id="nav-psych" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/5">روانشناسی</button>
-            <button onclick="showS('beauty')" id="nav-beauty" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/5">زیبایی‌سنج</button>
-            <button onclick="showS('games')" id="nav-games" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/5">گیم‌سنتر</button>
-            <button onclick="showS('sys')" id="nav-sys" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold hover:bg-white/5">سیستم</button>
-            <button onclick="toggleT()" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-cyan-500/20"><i class="fas fa-moon"></i></button>
+        <nav class="flex flex-wrap justify-center gap-2" id="main-nav">
+            <button onclick="changeTab('home')" class="nav-btn nav-active px-4 py-2 rounded-lg text-xs font-bold">داشبورد</button>
+            <button onclick="changeTab('cafe')" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold">کافه</button>
+            <button onclick="changeTab('psych')" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold">روانشناسی</button>
+            <button onclick="changeTab('beauty')" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold">زیبایی‌سنج</button>
+            <button onclick="changeTab('games')" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold">گیم‌سنتر</button>
+            <button onclick="changeTab('sys')" class="nav-btn px-4 py-2 rounded-lg text-xs font-bold">سیستم</button>
+            <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-cyan-500/20">
+                <i class="fas fa-circle-half-stroke"></i>
+            </button>
         </nav>
     </header>
 
@@ -57,29 +55,20 @@
         
         <section id="home" class="section active">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-2 cyber-card p-10 flex flex-col justify-center min-h-[300px]">
-                    <h2 class="text-5xl font-black mb-4">خوش آمدی، <span class="text-cyan-400">سینا</span></h2>
-                    <p class="opacity-60 max-w-lg mb-8">سیستم برای اجرای فرامین آماده است. تمامی ماژول‌های روانشناسی و تفریحی با موفقیت بارگذاری شدند.</p>
+                <div class="md:col-span-2 cyber-card p-10">
+                    <h2 class="text-4xl font-black mb-4 text-cyan-400">سلام سینا عزیز!</h2>
+                    <p class="opacity-70 mb-6 leading-7">به سیستم نکسوس خوش آمدی. تمام ماژول‌ها با موفقیت لود شدند. آماده‌ای برای تجربه کافه و روانشناسی؟</p>
                     <div class="flex gap-4">
-                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10 text-center">
-                            <i class="fas fa-cloud-sun text-2xl text-yellow-400 mb-2"></i>
-                            <p id="temp" class="text-xl font-black">۲۴°C</p>
-                            <p class="text-[10px] opacity-50">تهران، صاف</p>
-                        </div>
-                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10 text-center">
-                            <i class="fas fa-wifi text-2xl text-cyan-400 mb-2"></i>
-                            <p id="ip-val" class="text-xs font-mono">192.168.1.1</p>
-                            <p class="text-[10px] opacity-50">IP امنیتی شما</p>
+                        <div class="p-4 bg-white/5 rounded-xl border border-white/10 flex items-center gap-4">
+                            <i class="fas fa-clock text-cyan-500"></i>
+                            <div id="clock-display" class="font-mono text-sm">۰۰:۰۰:۰۰</div>
                         </div>
                     </div>
                 </div>
-                <div class="cyber-card p-6 flex flex-col items-center justify-center text-center">
-                    <h4 class="font-bold mb-4">وضعیت بیومتریک</h4>
-                    <div class="w-32 h-32 border-4 border-cyan-500/20 rounded-full flex items-center justify-center relative">
-                        <div class="absolute inset-0 border-4 border-cyan-500 rounded-full border-t-transparent animate-spin"></div>
-                        <i class="fas fa-heartbeat text-4xl text-red-500 animate-pulse"></i>
-                    </div>
-                    <p class="mt-4 text-xs opacity-50">ضربان قلب مجازی: ۷۲ BPM</p>
+                <div class="cyber-card p-6 flex flex-col items-center justify-center">
+                    <div id="weather-icon" class="text-5xl mb-4 text-yellow-400"><i class="fas fa-sun"></i></div>
+                    <div class="text-2xl font-black">۲۷°C</div>
+                    <p class="text-[10px] opacity-50 uppercase tracking-widest mt-2">Tehran, Iran</p>
                 </div>
             </div>
         </section>
@@ -87,76 +76,70 @@
         <section id="cafe" class="section">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="cyber-card p-8">
-                    <h3 class="text-2xl font-black text-orange-400 mb-6 italic"><i class="fas fa-mug-hot ml-3"></i>کافه نکسوس</h3>
+                    <h3 class="text-2xl font-black mb-6 border-r-4 border-orange-500 pr-4">منوی اختصاصی کافه</h3>
                     <div class="space-y-6">
                         <div>
-                            <label class="text-xs opacity-50 block mb-2">انتخاب پایه نوشیدنی:</label>
+                            <p class="text-xs mb-3 opacity-50">انتخاب نوشیدنی اصلی:</p>
                             <div class="grid grid-cols-2 gap-2">
-                                <button onclick="setB('قهوه/کاپوچینو', '#3c2a21')" class="p-3 bg-white/5 rounded-xl text-[10px] hover:bg-orange-900/40">قهوه / کاپوچینو</button>
-                                <button onclick="setB('نسکافه', '#5a3825')" class="p-3 bg-white/5 rounded-xl text-[10px] hover:bg-orange-900/40">نسکافه</button>
-                                <button onclick="setB('دمنوش آرامبخش', '#1e3a1d')" class="p-3 bg-white/5 rounded-xl text-[10px] hover:bg-green-900/40">دمنوش گیاهی</button>
-                                <button onclick="setB('شربت خنک', '#be123c')" class="p-3 bg-white/5 rounded-xl text-[10px] hover:bg-red-900/40">شربت آلبالو/نعنا</button>
+                                <button onclick="setDrink('قهوه', '#4b2c20')" class="p-3 bg-white/5 rounded-xl text-xs hover:bg-orange-500/20 transition">کاپوچینو / قهوه</button>
+                                <button onclick="setDrink('نسکافه', '#78350f')" class="p-3 bg-white/5 rounded-xl text-xs hover:bg-orange-500/20 transition">نسکافه داغ</button>
+                                <button onclick="setDrink('چای سبز', '#166534')" class="p-3 bg-white/5 rounded-xl text-xs hover:bg-green-500/20 transition">چای و دمنوش</button>
+                                <button onclick="setDrink('شربت', '#be123c')" class="p-3 bg-white/5 rounded-xl text-xs hover:bg-red-500/20 transition">شربت خنک</button>
                             </div>
                         </div>
-                        <div>
-                            <label class="text-xs opacity-50 block mb-2">افزودنی‌های دلخواه:</label>
-                            <div class="flex gap-2">
-                                <button onclick="addEx('شیر')" class="flex-1 p-3 bg-white/5 rounded-xl text-[10px]">+ شیر</button>
-                                <button onclick="addEx('شکر')" class="flex-1 p-3 bg-white/5 rounded-xl text-[10px]">+ شکر</button>
-                                <button onclick="addEx('یخ')" class="flex-1 p-3 bg-white/5 rounded-xl text-[10px]">+ یخ</button>
-                            </div>
+                        <div class="flex gap-2">
+                            <button onclick="addIng('شیر')" class="flex-1 p-3 bg-white/5 rounded-xl text-[10px] border border-white/10 hover:border-cyan-500">+ شیر</button>
+                            <button onclick="addIng('شکر')" class="flex-1 p-3 bg-white/5 rounded-xl text-[10px] border border-white/10 hover:border-cyan-500">+ شکر</button>
                         </div>
-                        <button onclick="makeBrew()" class="w-full bg-orange-600 py-4 rounded-2xl font-black hover:bg-orange-500 shadow-xl shadow-orange-900/20">شروع فرآیند تولید</button>
+                        <button onclick="brewNow()" class="w-full bg-orange-600 py-4 rounded-2xl font-black text-white hover:bg-orange-500 transition shadow-lg">سفارش را آماده کن</button>
                     </div>
                 </div>
-                <div class="cyber-card p-12 flex flex-col items-center justify-center relative min-h-[400px]">
-                    <div class="flex gap-3 mb-4">
-                        <div class="steam steam-line w-1 h-12 bg-white/20 rounded-full"></div>
-                        <div class="steam steam-line w-1 h-16 bg-white/20 rounded-full" style="animation-delay: 0.3s"></div>
-                        <div class="steam steam-line w-1 h-10 bg-white/20 rounded-full" style="animation-delay: 0.6s"></div>
+                <div class="cyber-card p-10 flex flex-col items-center justify-center">
+                    <div class="flex gap-2 mb-2">
+                        <div class="steam-anim w-1 h-12 bg-white/20 rounded-full"></div>
+                        <div class="steam-anim w-1 h-16 bg-white/20 rounded-full" style="animation-delay:0.5s"></div>
                     </div>
-                    <div class="relative w-40 h-48 border-x-8 border-b-8 border-white/10 rounded-b-[3rem] overflow-hidden">
-                        <div id="liquid-fill" class="liquid absolute bottom-0 w-full" style="height: 0%; background: transparent;"></div>
+                    <div class="relative w-40 h-48 border-x-8 border-b-8 border-white/20 rounded-b-[3rem] overflow-hidden">
+                        <div id="cup-liquid" class="liquid-fill absolute bottom-0 w-full" style="height: 0%"></div>
                     </div>
-                    <p id="cafe-msg" class="mt-8 font-bold text-orange-400 italic">در انتظار سفارش شما...</p>
+                    <p id="cafe-status" class="mt-6 font-bold text-orange-400 italic">منتظر انتخاب شما...</p>
                 </div>
             </div>
         </section>
 
         <section id="beauty" class="section">
             <div class="max-w-2xl mx-auto cyber-card p-12 text-center">
-                <div id="b-container" class="w-48 h-48 mx-auto border-4 border-cyan-500/20 rounded-full flex items-center justify-center mb-8 relative overflow-hidden">
-                    <i class="fas fa-user-check text-6xl opacity-20"></i>
-                    <div id="scan-line" class="absolute top-0 w-full h-1 bg-cyan-400 shadow-[0_0_15px_#00f2fe] hidden"></div>
+                <div class="w-40 h-40 mx-auto border-4 border-cyan-500/20 rounded-full mb-8 flex items-center justify-center relative overflow-hidden">
+                    <i class="fas fa-camera text-5xl opacity-20"></i>
+                    <div id="scan-bar" class="absolute top-0 w-full h-1 bg-cyan-400 shadow-[0_0_15px_cyan] hidden"></div>
                 </div>
-                <h3 class="text-3xl font-black mb-4">آنالیز زیبایی هوشمند</h3>
-                <p class="text-xs opacity-50 mb-8">با استفاده از سنسورهای بیومتریک، میزان جذابیت شما را در لحظه تخمین می‌زنیم.</p>
-                <button onclick="scanB()" class="bg-cyan-600 px-10 py-3 rounded-full font-bold hover:scale-105 transition">شروع اسکن چهره</button>
-                <div id="beauty-txt" class="mt-8 text-xl font-bold text-cyan-400 min-h-[60px]"></div>
+                <h3 class="text-2xl font-black mb-4">اسکنر بیومتریک چهره</h3>
+                <button onclick="startBeautyScan()" class="bg-cyan-600 px-12 py-3 rounded-full font-bold hover:scale-105 transition">شروع اسکن</button>
+                <div id="beauty-result" class="mt-8 text-xl font-bold min-h-[60px] text-cyan-400"></div>
             </div>
         </section>
 
         <section id="psych" class="section">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="cyber-card p-8">
-                    <h3 class="text-2xl font-black mb-6 text-purple-400">تست شخصیت MBTI</h3>
-                    <div id="quiz-box" class="space-y-4">
-                        <div id="q-text" class="p-6 bg-white/5 rounded-2xl text-sm leading-8">آیا حاضرید با ۱۰ پرسش کوتاه، تیپ شخصیتی خود را بشناسید؟</div>
-                        <div id="q-options" class="grid grid-cols-1 gap-2">
-                            <button onclick="startQ()" class="p-4 bg-purple-600 rounded-xl font-bold">بله، شروع تست</button>
+                    <h3 class="text-xl font-black text-purple-400 mb-6">تست شخصیت MBTI (سریع)</h3>
+                    <div id="mbti-area">
+                        <p id="mbti-text" class="mb-6 leading-7">آیا حاضرید با پاسخ به چند سوال تیپ شخصیتی خود را بشناسید؟</p>
+                        <div id="mbti-btns" class="grid gap-2">
+                            <button onclick="startMBTI()" class="p-4 bg-purple-600 rounded-xl font-bold">بله، شروع تست</button>
                         </div>
                     </div>
                 </div>
                 <div class="cyber-card p-8">
-                    <h3 class="text-2xl font-black mb-6 text-pink-400">مباحث روانشناسی جامع</h3>
-                    <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scroll">
+                    <h3 class="text-xl font-black text-pink-400 mb-6">دانشنامه روانشناسی</h3>
+                    <div class="space-y-4">
                         <div class="p-4 bg-white/5 rounded-xl border-r-4 border-pink-500">
-                            <h5 class="font-bold text-pink-400">خودشناسی (Self-Awareness)</h5>
-                            <p class="text-[11px] opacity-70">توانایی تشخیص احساسات، نقاط قوت، ضعف و ارزش‌های خود به عنوان یک فرد مجزا.</p>
+                            <h4 class="font-bold mb-1">تله‌های زندگی چیست؟</h4>
+                            <p class="text-xs opacity-60">الگوهای تکراری که از کودکی در ذهن ما شکل گرفته و در بزرگسالی مانع موفقیت می‌شوند.</p>
                         </div>
                         <div class="p-4 bg-white/5 rounded-xl border-r-4 border-cyan-500">
-                            <h5 class="font-bold text-cyan-400">هوش هیجانی (EQ)</h5>
-                            <p class="text-[11px] opacity-70">مهارت مدیریت احساسات خود و درک احساسات دیگران در تعاملات اجتماعی.</p>
+                            <h4 class="font-bold mb-1">هوش هیجانی (EQ)</h4>
+                            <p class="text-xs opacity-60">توانایی شناخت و کنترل احساسات خود و درک احساسات دیگران در روابط.</p>
                         </div>
                     </div>
                 </div>
@@ -166,40 +149,34 @@
         <section id="games" class="section">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="md:col-span-2 cyber-card p-6 flex flex-col items-center">
-                    <div class="flex justify-between w-full mb-4 font-mono">
-                        <span class="text-cyan-400">SNAKE V2.0</span>
-                        <span>SCORE: <span id="s-val" class="text-white">0</span></span>
+                    <div class="flex justify-between w-full mb-4 px-2">
+                        <span class="text-xs font-bold text-cyan-400 tracking-widest uppercase">Classic Snake</span>
+                        <span class="text-xs">SCORE: <span id="snake-score" class="font-mono">0</span></span>
                     </div>
-                    <canvas id="s-canvas" width="400" height="400" class="max-w-full bg-black/40 rounded-xl"></canvas>
-                    <div class="grid grid-cols-3 gap-2 mt-4 md:hidden">
-                        <button onclick="s_move('UP')" class="p-4 cyber-card col-start-2">↑</button>
-                        <button onclick="s_move('LEFT')" class="p-4 cyber-card">←</button>
-                        <button onclick="s_move('DOWN')" class="p-4 cyber-card">↓</button>
-                        <button onclick="s_move('RIGHT')" class="p-4 cyber-card">→</button>
-                    </div>
-                    <button onclick="initS()" class="mt-4 bg-cyan-600 px-10 py-2 rounded-full font-bold">شروع مجدد</button>
+                    <canvas id="snakeCanvas" width="360" height="360" class="bg-black/40 rounded-xl border border-white/5"></canvas>
+                    <button onclick="initSnakeGame()" class="mt-6 bg-cyan-600 px-10 py-2 rounded-full font-bold">شروع بازی مار</button>
                 </div>
                 <div class="cyber-card p-6">
-                    <h4 class="font-bold mb-4 italic">بزودی (به‌روزرسانی بعدی)</h4>
-                    <div class="space-y-2 opacity-40">
-                        <div class="p-4 border border-white/10 rounded-xl text-xs">شطرنج آنلاین</div>
-                        <div class="p-4 border border-white/10 rounded-xl text-xs">تست هوش تصویری</div>
-                        <div class="p-4 border border-white/10 rounded-xl text-xs">سودوکو سخت</div>
+                    <h4 class="font-bold mb-6 italic opacity-50">بخش بازی‌های سریع</h4>
+                    <div class="grid gap-2">
+                        <button onclick="alert('به زودی!')" class="p-4 bg-white/5 rounded-xl text-xs hover:bg-white/10 text-right">دوز هوشمند</button>
+                        <button onclick="alert('به زودی!')" class="p-4 bg-white/5 rounded-xl text-xs hover:bg-white/10 text-right">تست سرعت کلیک</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="sys" class="section">
-            <div class="cyber-card p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="space-y-4" id="hardware-list">
-                    <h3 class="text-3xl font-black text-cyan-400 mb-6 italic">System Core</h3>
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <div class="relative w-56 h-56 border-[15px] border-white/5 rounded-full flex flex-col items-center justify-center">
-                        <div id="fps-gauge" class="absolute inset-0 border-[15px] border-cyan-500 rounded-full border-t-transparent animate-spin"></div>
-                        <span id="fps-count" class="text-6xl font-black">--</span>
-                        <span class="text-[10px] opacity-40 uppercase tracking-widest">Global FPS</span>
+            <div class="cyber-card p-10 flex flex-col items-center text-center">
+                <h3 class="text-3xl font-black mb-10 text-cyan-400">System Monitoring</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-[10px] opacity-50 mb-2 uppercase">GPU Performance</p>
+                        <p id="fps-val" class="text-3xl font-black">--</p>
+                    </div>
+                    <div class="p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <p class="text-[10px] opacity-50 mb-2 uppercase">CPU Cores</p>
+                        <p class="text-3xl font-black" id="cpu-cores">--</p>
                     </div>
                 </div>
             </div>
@@ -208,103 +185,138 @@
     </main>
 
     <script>
-        // --- هسته مدیریت سیستم ---
-        function showS(id) {
+        // --- مدیریت تب‌ها ---
+        function changeTab(id) {
+            // مخفی کردن همه بخش‌ها
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-tab'));
-            document.getElementById(id).classList.add('active');
-            document.getElementById('nav-' + id).classList.add('active-tab');
+            // غیرفعال کردن همه دکمه‌های نویگیشن
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('nav-active'));
+            
+            // نمایش بخش انتخابی
+            const targetSection = document.getElementById(id);
+            if(targetSection) targetSection.classList.add('active');
+            
+            // فعال کردن دکمه مربوطه در نویگیشن
+            const activeBtn = document.querySelector(`[onclick="changeTab('${id}')"]`);
+            if(activeBtn) activeBtn.classList.add('nav-active');
         }
 
-        function toggleT() { document.body.classList.toggle('light-mode'); }
+        // --- دارک مود / لایت مود ---
+        function toggleDarkMode() {
+            document.body.classList.toggle('light-mode');
+        }
 
+        // --- ساعت و تاریخ ---
         setInterval(() => {
             const now = new Date();
-            document.getElementById('live-clock').innerText = now.toLocaleTimeString('fa-IR') + ' | ' + new Intl.DateTimeFormat('fa-IR', {calendar:'persian', year:'numeric', month:'long', day:'numeric'}).format(now);
+            document.getElementById('clock-display').innerText = now.toLocaleTimeString('fa-IR');
         }, 1000);
 
         // --- سیستم کافه ---
-        let cupB = {n:'', c:''}, cupEx = [];
-        function setB(n, c) { cupB = {n, c}; document.getElementById('cafe-msg').innerText = "پایه " + n + " انتخاب شد."; }
-        function addEx(n) { cupEx.push(n); document.getElementById('cafe-msg').innerText = n + " اضافه شد."; }
-        function makeBrew() {
-            if(!cupB.n) return alert('لطفاً ابتدا نوع نوشیدنی را انتخاب کنید!');
-            const fill = document.getElementById('liquid-fill');
-            const msg = document.getElementById('cafe-msg');
-            fill.style.height = "0%"; fill.style.background = cupB.c;
-            msg.innerText = "در حال ترکیب مواد و دم‌آوری...";
+        let selectedDrink = { name: '', color: '' };
+        let extras = [];
+
+        function setDrink(name, color) {
+            selectedDrink = { name, color };
+            document.getElementById('cafe-status').innerText = name + " انتخاب شد.";
+        }
+        function addIng(name) {
+            extras.push(name);
+            document.getElementById('cafe-status').innerText = name + " اضافه شد.";
+        }
+        function brewNow() {
+            if(!selectedDrink.name) return alert('اول یک نوشیدنی انتخاب کن!');
+            const fill = document.getElementById('cup-liquid');
+            fill.style.height = "0%";
+            fill.style.background = selectedDrink.color;
+            document.getElementById('cafe-status').innerText = "در حال آماده‌سازی...";
+            
             setTimeout(() => {
                 fill.style.height = "85%";
-                document.querySelectorAll('.steam').forEach(s => s.style.opacity = "1");
-                msg.innerText = cupB.n + " شما با " + (cupEx.join(' و ') || 'خلوص کامل') + " آماده شد. نوش جان!";
-                cupEx = [];
-            }, 1500);
+                document.querySelectorAll('.steam-anim').forEach(s => s.style.opacity = "1");
+                document.getElementById('cafe-status').innerText = selectedDrink.name + " شما با " + (extras.join(' و ') || 'خلوص کامل') + " آماده است!";
+                extras = [];
+            }, 1000);
         }
 
         // --- زیبایی‌سنج (۱۰۰ جمله) ---
-        const gP = [
-            "خیره کننده‌ای! سیستم از شدت جذابیت تو هنگ کرد.", "تو زیباترین ورژنی هستی که تا حالا اسکن کردم.","لبخندت می‌تونه دنیا رو جای بهتری کنه.","استاندارد زیبایی جهان با تو تغییر کرد!","جذابیتی فراتر از پیکسل‌ها داری."
-        ];
-        for(let i=0; i<95; i++) gP.push("جمله مثبت شماره " + (i+6) + ": امروز واقعاً فوق‌العاده‌ای!");
-        const bP = [
-            "شانس خیلی بدی داشتی! از بین ۱۰۰ جمله خوب، این افتاد: امروز زیاد جذاب نیستی!",
-            "سیستم در اسکن باگ خورد. احتمالا به خاطر بدشانسی شماست!",
-            "قیافت امروز شبیه کساییه که امتحان ریاضی دارن!"
-        ];
+        const gP = ["ماه در مقابل تو کم میاره!","جذابیتت سیستم رو هنگ کرد.","تو دقیقا همون تعریفی هستی که از کلمه زیبا داریم.","لبخندت می‌تونه دنیا رو جای بهتری کنه."];
+        for(let i=0; i<96; i++) gP.push("جمله مثبت شماره " + i + ": تو فوق‌العاده‌ای!");
+        const bP = ["شانس خیلی بدی داشتی! از بین ۱۰۰ تا جمله خوب، این افتاد: امروز زیاد جذاب نیستی!","زیبایی درونی مهمه، چون ظاهری... ولش کن!"];
 
-        function scanB() {
-            const line = document.getElementById('scan-line');
-            const txt = document.getElementById('beauty-txt');
-            line.classList.remove('hidden');
-            line.animate([{top:'0%'}, {top:'100%'}], {duration: 1500, iterations: 2});
-            txt.innerText = "در حال آنالیز لایه‌های بیومتریک...";
+        function startBeautyScan() {
+            const bar = document.getElementById('scan-bar');
+            const res = document.getElementById('beauty-result');
+            bar.classList.remove('hidden');
+            bar.animate([{top:'0%'},{top:'100%'}], {duration: 1500, iterations: 2});
+            res.innerText = "در حال آنالیز پیکسل‌های چهره...";
+            
             setTimeout(() => {
-                line.classList.add('hidden');
-                if(Math.random() > 0.1) txt.innerText = "✨ " + gP[Math.floor(Math.random()*gP.length)];
-                else txt.innerText = "💀 " + bP[Math.floor(Math.random()*bP.length)];
+                bar.classList.add('hidden');
+                if(Math.random() > 0.1) res.innerText = "✨ " + gP[Math.floor(Math.random()*gP.length)];
+                else res.innerText = "💀 " + bP[Math.floor(Math.random()*bP.length)];
             }, 3000);
         }
 
-        // --- روانشناسی MBTI ---
-        let qIndex = 0, qScore = "";
-        function startQ() {
-            qIndex = 1;
-            document.getElementById('q-text').innerText = "پرسش ۱: در جمع‌های شلوغ انرژی می‌گیرید (برون‌گرا) یا ترجیح می‌دهید تنها باشید (درون‌گرا)؟";
-            document.getElementById('q-options').innerHTML = `
-                <button onclick="nextQ('E')" class="p-3 bg-white/5 rounded-xl hover:bg-cyan-500/20">انرژی می‌گیرم</button>
-                <button onclick="nextQ('I')" class="p-3 bg-white/5 rounded-xl hover:bg-cyan-500/20">نیاز به تنهایی دارم</button>
+        // --- تست شخصیت MBTI ---
+        let mbtiScore = "";
+        function startMBTI() {
+            document.getElementById('mbti-text').innerText = "۱. معمولا ترجیح می‌دهید تنها باشید یا در جمع‌های بزرگ؟";
+            document.getElementById('mbti-btns').innerHTML = `
+                <button onclick="nextMBTI('I')" class="p-3 bg-white/5 rounded-xl">تنهایی</button>
+                <button onclick="nextMBTI('E')" class="p-3 bg-white/5 rounded-xl">جمع‌های بزرگ</button>
             `;
         }
-        function nextQ(code) {
-            qScore += code;
-            if(qIndex === 1) {
-                qIndex = 2;
-                document.getElementById('q-text').innerText = "پرسش ۲: در تصمیم‌گیری بیشتر به منطق و واقعیت‌ها اهمیت می‌دهید یا احساسات؟";
-                document.getElementById('q-options').innerHTML = `<button onclick="nextQ('T')" class="p-3 bg-white/5 rounded-xl">منطق</button><button onclick="nextQ('F')" class="p-3 bg-white/5 rounded-xl">احساس</button>`;
-            } else {
-                document.getElementById('q-text').innerText = "تحلیل سیستم: تیپ شخصیتی احتمالی شما " + qScore + " است. شما فردی منحصر به فرد با لایه‌های شخصیتی عمیق هستید.";
-                document.getElementById('q-options').innerHTML = `<button onclick="startQ()" class="p-4 bg-purple-600 rounded-xl">شروع مجدد</button>`;
-            }
+        function nextMBTI(code) {
+            mbtiScore += code;
+            document.getElementById('mbti-text').innerText = "تحلیل سیستم: تیپ شما متمایل به " + mbtiScore + " است. شما فردی متفکر و خاص هستید.";
+            document.getElementById('mbti-btns').innerHTML = `<button onclick="startMBTI()" class="p-4 bg-purple-600 rounded-xl">تکرار تست</button>`;
         }
 
-        // --- بازی مار (Snake Pro) ---
-        const canvas = document.getElementById('s-canvas'), ctx = canvas.getContext('2d');
-        let snake, food, s_dir, s_loop, score;
-        function initS() {
-            snake = [{x:10, y:10}]; food = {x:15, y:15}; s_dir = 'RIGHT'; score = 0;
-            if(s_loop) clearInterval(s_loop);
-            s_loop = setInterval(drawS, 100);
-        }
-        function drawS() {
-            ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fillRect(0,0,400,400);
-            let head = {...snake[0]};
-            if(s_dir === 'UP') head.y--; if(s_dir === 'DOWN') head.y++;
-            if(s_dir === 'LEFT') head.x--; if(s_dir === 'RIGHT') head.x++;
+        // --- بازی مار (اصلاح شده) ---
+        const canvas = document.getElementById('snakeCanvas'), ctx = canvas.getContext('2d');
+        let snake, food, dx, dy, sLoop, score;
 
+        function initSnakeGame() {
+            snake = [{x: 10, y: 10}]; food = {x: 5, y: 5}; dx = 1; dy = 0; score = 0;
+            if(sLoop) clearInterval(sLoop);
+            sLoop = setInterval(drawSnake, 100);
+        }
+
+        function drawSnake() {
+            ctx.fillStyle = '#000'; ctx.fillRect(0,0,360,360);
+            let head = {x: snake[0].x + dx, y: snake[0].y + dy};
             if(head.x === food.x && head.y === food.y) {
-                score += 10; document.getElementById('s-val').innerText = score;
-                food = {x: Math.floor(Math.random()*19), y: Math.floor(Math.random()*19)};
+                score += 10; document.getElementById('snake-score').innerText = score;
+                food = {x: Math.floor(Math.random()*17), y: Math.floor(Math.random()*17)};
             } else snake.pop();
+            
+            if(head.x<0 || head.x>17 || head.y<0 || head.y>17 || snake.some(s=>s.x===head.x && s.y===head.y)) {
+                clearInterval(sLoop); alert('بازی تمام شد!'); return;
+            }
+            snake.unshift(head);
+            ctx.fillStyle = '#00f2fe'; snake.forEach(s => ctx.fillRect(s.x*20, s.y*20, 18, 18));
+            ctx.fillStyle = '#ff0033'; ctx.fillRect(food.x*20, food.y*20, 18, 18);
+        }
 
-            if(head.x < 0 || head.x > 19 || head.y < 0 || head.y > 19 || snake.some(s => s.x === head.x && s.y === head.y)) {
-                clearInterval(s_loop); alert('بازی تمام شد! امت
+        window.addEventListener('keydown', e => {
+            if(e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
+            if(e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 1; }
+            if(e.key === 'ArrowLeft' && dx === 0) { dx = -1; dy = 0; }
+            if(e.key === 'ArrowRight' && dx === 0) { dx = 1; dy = 0; }
+        });
+
+        // --- سیستم آنالیزور ---
+        let fc = 0, lt = performance.now();
+        function updateFPS() {
+            fc++; let n = performance.now();
+            if(n >= lt + 1000) { document.getElementById('fps-val').innerText = fc; fc = 0; lt = n; }
+            requestAnimationFrame(updateFPS);
+        }
+        updateFPS();
+        document.getElementById('cpu-cores').innerText = navigator.hardwareConcurrency || 'N/A';
+
+    </script>
+</body>
+</html>
+
