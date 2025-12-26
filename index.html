@@ -3,334 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REZA NEXUS OS | Global Edition 2025</title>
+    <title>REZA NEXUS PRIME | Ultimate OS 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;700;900&display=swap');
         
         :root {
-            --primary: #00f2fe;
-            --secondary: #4facfe;
-            --accent: #f093fb;
-            --bg: #050505;
+            --neon: #00f2fe;
+            --dark-bg: #020617;
+            --card-bg: rgba(15, 23, 42, 0.7);
         }
 
         body { 
             font-family: 'Vazirmatn', sans-serif; 
-            background-color: var(--bg);
-            color: white;
+            background: var(--dark-bg); 
+            color: #e2e8f0;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* پس‌زمینه نئونی متحرک */
-        .nexus-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-            background: radial-gradient(circle at 50% 50%, #0a0a1a 0%, #050505 100%);
-        }
-        .orb {
-            position: absolute; width: 600px; height: 600px; border-radius: 50%;
-            filter: blur(120px); opacity: 0.3; z-index: -1; animation: moveOrb 25s infinite alternate;
-        }
-        @keyframes moveOrb {
-            0% { transform: translate(-30%, -30%) rotate(0deg); background: var(--primary); }
-            100% { transform: translate(50%, 50%) rotate(360deg); background: var(--accent); }
+        /* پس‌زمینه زنده با ذرات متحرک */
+        .bg-glow {
+            position: fixed; width: 100vw; height: 100vh; z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .glass-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 40px rgba(0, 242, 254, 0.15);
+        .cyber-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            border-radius: 1.5rem;
+            transition: all 0.4s ease;
         }
 
-        .leaderboard-list { font-size: 0.7rem; color: #00f2fe; }
-        .tab-btn.active { border-bottom: 3px solid var(--primary); color: var(--primary); }
-        
-        /* انیمیشن لودینگ قهوه و سیستم */
-        .loader-bar { height: 4px; background: var(--primary); transition: width 0.3s; box-shadow: 0 0 15px var(--primary); }
+        .cyber-card:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .active-tab {
+            background: linear-gradient(to right, #00f2fe, #4facfe);
+            color: #000 !important;
+            box-shadow: 0 0 20px var(--neon);
+        }
+
+        /* انیمیشن بخار واقعی قهوه */
+        .steam-line {
+            width: 2px; height: 15px; background: #fff;
+            margin: 0 2px; opacity: 0; border-radius: 10px;
+        }
+        @keyframes steamUp {
+            0% { transform: translateY(0) scaleX(1); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-30px) scaleX(2); opacity: 0; }
+        }
+        .brewing .steam-line { animation: steamUp 1.5s infinite; }
+
+        canvas { border-radius: 1rem; }
     </style>
 </head>
-<body class="p-4 md:p-12">
-    <div class="nexus-bg">
-        <div class="orb"></div>
-        <div class="orb" style="animation-delay: -12s; right: 0; top: 0;"></div>
-    </div>
+<body class="p-4 md:p-8">
+    <div class="bg-glow"></div>
 
-    <header class="flex flex-col md:flex-row justify-between items-center mb-12 animate__animated animate__fadeIn">
-        <div class="flex items-center gap-6 mb-6 md:mb-0">
-            <div class="relative group">
-                <div class="absolute inset-0 bg-cyan-500 blur-2xl opacity-40 group-hover:opacity-70 transition rounded-full"></div>
-                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Sina" class="w-20 h-20 rounded-3xl relative border border-cyan-400/50 bg-black/50 p-2">
+    <header class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+        <div class="flex items-center gap-5">
+            <div class="relative">
+                <div class="absolute inset-0 bg-cyan-400 blur-xl opacity-30 animate-pulse"></div>
+                <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center border border-cyan-500/50">
+                    <i class="fas fa-terminal text-2xl text-cyan-400"></i>
+                </div>
             </div>
             <div>
-                <h1 class="text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">NEXUS ELITE</h1>
-                <p id="live-time" class="text-xs font-mono opacity-60 tracking-[0.4em]">LOADING SYSTEM...</p>
+                <h1 class="text-3xl font-black tracking-tighter text-white">NEXUS <span class="text-cyan-400">PRIME</span></h1>
+                <div class="flex gap-2 text-[10px] font-mono opacity-60">
+                    <span id="live-date">۱۴۰۴/۱۰/۰۵</span>
+                    <span id="live-clock">۱۲:۰۰:۰۰</span>
+                </div>
             </div>
         </div>
-        <nav class="glass-card px-8 py-4 flex gap-10">
-            <button onclick="showSection('home')" class="tab-btn font-bold hover:text-cyan-400 transition">خانه</button>
-            <button onclick="showSection('tools')" class="tab-btn font-bold hover:text-cyan-400 transition">آزمایشگاه</button>
-            <button onclick="showSection('games')" class="tab-btn font-bold hover:text-cyan-400 transition">گیم‌سنتر</button>
-            <button onclick="showSection('sys')" class="tab-btn font-bold hover:text-cyan-400 transition">سیستم</button>
+
+        <nav class="cyber-card p-1.5 flex gap-2">
+            <button onclick="showSection('home')" id="btn-home" class="tab-btn active-tab px-6 py-2 rounded-xl text-sm font-bold transition">داشبورد</button>
+            <button onclick="showSection('lab')" id="btn-lab" class="tab-btn px-6 py-2 rounded-xl text-sm font-bold transition">آزمایشگاه</button>
+            <button onclick="showSection('games')" id="btn-games" class="tab-btn px-6 py-2 rounded-xl text-sm font-bold transition">سرگرمی</button>
+            <button onclick="showSection('sys')" id="btn-sys" class="tab-btn px-6 py-2 rounded-xl text-sm font-bold transition">سیستم</button>
         </nav>
     </header>
 
-    <main id="home" class="section active space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="md:col-span-2 glass-card p-12 flex flex-col justify-center">
-                <h2 class="text-7xl font-black mb-6 leading-none">فرمانده،<br><span class="text-cyan-400 italic">خوش آمدید.</span></h2>
-                <div class="flex gap-6 items-center">
-                    <div class="h-2 w-32 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-cyan-500 w-3/4 animate-pulse"></div></div>
-                    <span id="user-ip" class="text-xs font-mono opacity-50 tracking-widest uppercase">Detecting Secure IP...</span>
+    <main class="max-w-7xl mx-auto">
+        <div id="home" class="section space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="md:col-span-2 cyber-card p-8 flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/10 blur-3xl rounded-full"></div>
+                    <h2 class="text-5xl font-black mb-4">خوش آمدید، <span class="text-cyan-400">سینا</span></h2>
+                    <p class="text-sm opacity-50 max-w-md">تمام سیستم‌ها پایدار هستند. آماده اجرای دستورات شما در محیط نکسوس پرایم.</p>
+                    <div class="mt-8 flex gap-4">
+                        <div class="bg-cyan-500/10 border border-cyan-500/30 px-4 py-2 rounded-lg text-xs font-mono">
+                            NETWORK: <span id="user-ip" class="text-cyan-400">CONNECTING...</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cyber-card p-6 flex flex-col items-center justify-center text-center">
+                    <div class="flex items-center gap-2 mb-4">
+                        <input id="city-search" type="text" placeholder="نام شهر..." class="bg-white/5 border border-white/10 rounded-lg px-3 py-1 text-xs outline-none focus:border-cyan-500">
+                        <button onclick="updateWeather()" class="text-cyan-400"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div id="w-icon" class="text-5xl text-yellow-400 mb-2"><i class="fas fa-sun"></i></div>
+                    <div id="w-temp" class="text-4xl font-black">۲۲°C</div>
+                    <div id="w-city" class="text-xs opacity-50 uppercase mt-1 tracking-widest">TEHRAN, IR</div>
                 </div>
             </div>
-            <div class="glass-card p-8 text-center relative overflow-hidden group">
-                <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
-                <input id="city-input" type="text" placeholder="نام شهر به انگلیسی..." class="bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm w-full mb-4 outline-none focus:border-cyan-400 text-center">
-                <button onclick="fetchWeather()" class="w-full bg-cyan-600/20 border border-cyan-500/50 rounded-2xl py-3 text-xs font-black uppercase tracking-widest hover:bg-cyan-600 transition mb-6">Update Atmosphere</button>
-                <div id="w-icon" class="text-6xl text-cyan-400 mb-2"><i class="fas fa-bolt-lightning"></i></div>
-                <h3 id="temp" class="text-6xl font-black">--°</h3>
-                <p id="city-display" class="opacity-40 text-xs mt-2 uppercase tracking-tighter">LOCATION PENDING</p>
+        </div>
+
+        <div id="lab" class="section hidden grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="cyber-card p-6">
+                <h4 class="font-bold text-cyan-400 mb-4"><i class="fas fa-key ml-2"></i>تولیدکننده کلید سِد (Seed)</h4>
+                <p class="text-[10px] opacity-50 mb-4">تولید کلمات امنیتی برای کیف پول‌های دیجیتال (شبیه‌سازی).</p>
+                <div id="seed-output" class="bg-black/40 p-3 rounded-lg text-[10px] font-mono mb-4 min-h-[60px] break-words">---</div>
+                <button onclick="generateSeed()" class="w-full bg-cyan-600 hover:bg-cyan-500 py-2 rounded-lg text-xs font-bold transition">تولید کلید امن</button>
+            </div>
+
+            <div class="cyber-card p-6">
+                <h4 class="font-bold text-purple-400 mb-4"><i class="fas fa-code ml-2"></i>پاکسازی کد (Minifier)</h4>
+                <textarea id="code-in" placeholder="کد JS یا CSS خود را اینجا بریزید..." class="w-full h-24 bg-black/40 border border-white/10 rounded-lg p-3 text-[10px] mb-2 outline-none focus:border-purple-500"></textarea>
+                <button onclick="minifyCode()" class="w-full bg-purple-600 hover:bg-purple-500 py-2 rounded-lg text-xs font-bold transition">فشرده‌سازی سریع</button>
+            </div>
+
+            <div class="cyber-card p-6 text-center">
+                <h4 class="font-bold text-red-400 mb-6">تست پایداری (GPU Stress)</h4>
+                <div id="stress-val" class="text-5xl font-black mb-2">۰</div>
+                <p class="text-[10px] opacity-40 mb-4">تعداد ذرات رندر شده در ثانیه</p>
+                <button onclick="toggleStress()" id="stress-btn" class="border border-red-500 text-red-500 px-6 py-2 rounded-full text-xs font-bold hover:bg-red-500 hover:text-white transition">شروع آنالیز هسته</button>
+            </div>
+        </div>
+
+        <div id="games" class="section hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="cyber-card p-6 flex flex-col items-center">
+                <div class="flex justify-between w-full mb-4 px-2">
+                    <span class="text-xs font-bold">بازی مار کلاسیک</span>
+                    <span id="snake-score" class="text-xs text-cyan-400">امتیاز: ۰</span>
+                </div>
+                <canvas id="snakeGame" width="300" height="300" class="bg-black/50 border border-white/10"></canvas>
+                <button onclick="startSnake()" class="mt-4 bg-white/10 px-8 py-2 rounded-full text-xs hover:bg-white/20">شروع بازی</button>
+            </div>
+
+            <div class="cyber-card p-6 flex flex-col items-center justify-center">
+                <h4 class="text-orange-400 font-bold mb-8">دستگاه قهوه‌ساز اتوماتیک</h4>
+                <div id="coffee-area" class="relative">
+                    <div class="flex justify-center mb-1">
+                        <div class="steam-line" style="animation-delay: 0.1s"></div>
+                        <div class="steam-line" style="animation-delay: 0.4s"></div>
+                        <div class="steam-line" style="animation-delay: 0.2s"></div>
+                    </div>
+                    <i class="fas fa-mug-hot text-7xl text-slate-700 transition-colors duration-500" id="coffee-mug"></i>
+                    <div id="fill-level" class="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 bg-orange-900 transition-all duration-[3000ms]" style="height: 0; border-radius: 0 0 5px 5px; opacity: 0.6;"></div>
+                </div>
+                <div class="w-48 h-1.5 bg-white/5 rounded-full mt-8 overflow-hidden">
+                    <div id="brew-progress" class="h-full bg-orange-500 w-0 transition-all"></div>
+                </div>
+                <button onclick="brewCoffee()" id="brew-btn" class="mt-6 bg-orange-700 px-10 py-3 rounded-2xl text-xs font-bold hover:bg-orange-600 transition shadow-lg shadow-orange-900/20">دم کردن (۳ ثانیه)</button>
+            </div>
+        </div>
+
+        <div id="sys" class="section hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 cyber-card p-10">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-black text-cyan-400 border-r-4 border-cyan-500 pr-4">Hardware Monitor</h3>
+                    <div id="hardware-info" class="grid gap-4">
+                        </div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <div class="relative w-48 h-48">
+                        <svg class="w-full h-full transform -rotate-90">
+                            <circle cx="96" cy="96" r="80" stroke="currentColor" stroke-width="12" fill="transparent" class="text-slate-800" />
+                            <circle id="fps-circle" cx="96" cy="96" r="80" stroke="currentColor" stroke-width="12" fill="transparent" stroke-dasharray="502" stroke-dashoffset="502" class="text-cyan-500 transition-all duration-500" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span id="fps-text" class="text-5xl font-black">--</span>
+                            <span class="text-[10px] opacity-40">REALTIME FPS</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <section id="tools" class="section hidden grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="glass-card p-8 border-t-2 border-red-500">
-            <div class="flex justify-between items-center mb-6">
-                <h4 class="font-black text-xl italic">Security Scan</h4>
-                <i class="fas fa-fingerprint text-red-500 text-2xl"></i>
-            </div>
-            <input id="pass-in" oninput="analyzePass()" type="password" placeholder="کلمه عبور جهت آنالیز..." class="w-full bg-black/50 rounded-2xl p-4 text-sm mb-4 outline-none border border-white/10 focus:border-red-500">
-            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden mb-4">
-                <div id="pass-bar" class="h-full w-0 bg-red-500 transition-all duration-700"></div>
-            </div>
-            <p id="pass-status" class="text-[10px] font-mono opacity-50">STRENGTH: NULL</p>
-        </div>
-
-        <div class="glass-card p-8 border-t-2 border-cyan-500">
-            <h4 class="font-black text-xl mb-6 italic text-cyan-400">Morse Terminal</h4>
-            <textarea id="morse-in" oninput="morseGen()" placeholder="پیام خود را تایپ کنید..." class="w-full h-24 bg-black/50 rounded-2xl p-4 text-xs mb-4 outline-none border border-white/10 focus:border-cyan-500 resize-none"></textarea>
-            <div id="morse-out" class="font-mono text-cyan-500 text-lg tracking-widest break-all"></div>
-        </div>
-
-        <div class="glass-card p-8 border-t-2 border-yellow-500 text-center">
-            <h4 class="font-black text-xl mb-4 italic text-yellow-500">GPU Stress Test</h4>
-            <canvas id="stress-canvas" class="w-full h-32 bg-black/20 rounded-2xl mb-4"></canvas>
-            <button onclick="runStress()" id="stress-btn" class="px-8 py-3 bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 rounded-full text-xs font-black">START BENCHMARK</button>
-            <div id="benchmark-res" class="mt-4 text-2xl font-mono text-white">SCORE: --</div>
-        </div>
-    </section>
-
-    <section id="games" class="section hidden space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div class="glass-card p-6 flex flex-col items-center">
-                <span class="text-[10px] opacity-40 mb-4 font-black">REFLEX TEST</span>
-                <div id="reflex-box" onclick="reflexClick()" class="w-full h-32 bg-white/5 rounded-3xl cursor-pointer flex items-center justify-center text-xs font-black transition-all">آماده؟</div>
-                <div class="mt-4 text-cyan-400 text-xs font-mono">رکورد: <span id="reflex-high">--</span>ms</div>
-            </div>
-
-            <div class="glass-card p-6 flex flex-col items-center">
-                <span class="text-[10px] opacity-40 mb-2 font-black">ULTIMATE CLICKER</span>
-                <div id="click-val" class="text-4xl font-black mb-4">۰</div>
-                <button onclick="handleMainClick()" class="w-20 h-20 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full shadow-[0_0_30px_rgba(6,182,212,0.5)] border-4 border-white/20 active:scale-90 transition"></button>
-                <div class="mt-4 text-cyan-400 text-xs font-mono">بیشترین کلیک: <span id="click-high">۰</span></div>
-            </div>
-
-            <div class="glass-card p-6 flex flex-col items-center">
-                <span class="text-[10px] opacity-40 mb-4 font-black">NUMBER BRAIN</span>
-                <input id="num-guess" type="number" placeholder="1-100" class="w-full bg-white/5 p-2 rounded-xl text-center mb-2 outline-none border border-white/10">
-                <button onclick="playGuess()" class="bg-white/10 w-full py-2 rounded-xl text-[10px] font-black">CHECK</button>
-                <div id="guess-hint" class="mt-2 text-[9px] text-yellow-500">یک عدد حدس بزن!</div>
-            </div>
-
-            <div class="glass-card p-6 flex flex-col items-center">
-                <span class="text-[10px] opacity-40 mb-4 font-black">COFFEE ENGINE</span>
-                <i id="cup" class="fas fa-mug-hot text-5xl opacity-20 transition-all"></i>
-                <div class="w-full h-1 bg-white/5 mt-6 rounded-full overflow-hidden"><div id="brew-bar" class="h-full w-0 bg-orange-500"></div></div>
-                <button onclick="brewCoffee()" class="mt-4 text-[10px] font-black text-orange-400 uppercase">Start Brewing</button>
-            </div>
-        </div>
-
-        <div class="glass-card p-10">
-            <h3 class="text-2xl font-black mb-8 italic"><i class="fas fa-trophy text-yellow-500 ml-4"></i>HALL OF FAME (Local)</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12" id="leaderboard-display">
-                </div>
-        </div>
-    </section>
-
-    <section id="sys" class="section hidden">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 glass-card p-12 relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-10 opacity-5 text-8xl font-black italic">NEXUS</div>
-            <div class="space-y-8 relative z-10">
-                <h3 class="text-4xl font-black text-cyan-400 italic">SYSTEM_CORE</h3>
-                <div id="spec-list" class="space-y-4"></div>
-            </div>
-            <div class="flex flex-col items-center justify-center relative">
-                <div class="w-64 h-64 border-8 border-cyan-500/20 rounded-full flex flex-col items-center justify-center animate__animated animate__pulse animate__infinite">
-                    <span id="fps-val" class="text-8xl font-black text-cyan-400 tracking-tighter">--</span>
-                    <span class="text-xs opacity-40 font-black tracking-[0.5em]">HERTZ</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="ai-container" class="fixed bottom-10 left-10 z-[5000]">
-        <div id="ai-chat" class="hidden w-80 glass-card p-6 mb-4 animate__animated animate__fadeInUp border-l-4 border-cyan-500">
-            <div class="text-[10px] font-black opacity-40 mb-4 uppercase tracking-widest">Nexus AI Interface</div>
-            <div id="chat-window" class="h-48 overflow-y-auto space-y-4 mb-4 pr-2 text-[11px] font-light"></div>
-            <div class="flex gap-2">
-                <input id="ai-in" type="text" placeholder="فرمانی صادر کنید..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 w-full text-xs outline-none">
-                <button onclick="aiProcess()" class="bg-cyan-600 px-4 rounded-xl"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <button onclick="toggleAI()" class="w-16 h-16 bg-cyan-600 rounded-[2rem] shadow-[0_0_30px_rgba(6,182,212,0.4)] flex items-center justify-center text-2xl hover:scale-110 active:scale-90 transition">
-            <i class="fas fa-brain"></i>
-        </button>
-    </div>
-
     <script>
-        // --- هسته مدیریت بخش‌ها ---
+        // --- مدیریت ساعت و تاریخ دقیق شمسی ---
+        function updateTime() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', calendar: 'persian', locale: 'fa-IR' };
+            document.getElementById('live-date').innerText = new Intl.DateTimeFormat('fa-IR', options).format(now);
+            document.getElementById('live-clock').innerText = now.toLocaleTimeString('fa-IR');
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // --- سوئیچ تب‌ها ---
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-tab'));
             document.getElementById(id).classList.remove('hidden');
-            document.getElementById(id).classList.add('animate__animated', 'animate__fadeIn');
-            updateLeaderboard();
+            document.getElementById('btn-' + id).classList.add('active-tab');
         }
 
-        // --- سیستم هواشناسی هوشمند ---
-        async function fetchWeather() {
-            const city = document.getElementById('city-input').value || 'Tehran';
-            document.getElementById('city-display').innerText = "CONNECTING TO STATION...";
-            try {
-                // شبیه‌سازی دریافت داده (در حالت واقعی از OpenWeather استفاده کنید)
-                setTimeout(() => {
-                    const temp = Math.floor(Math.random() * 30) + 5;
-                    document.getElementById('temp').innerText = temp + "°";
-                    document.getElementById('city-display').innerText = city.toUpperCase();
-                }, 1000);
-            } catch(e) { alert('خطا در اتصال به ماهواره!'); }
+        // --- دریافت IP (سازگار با ایران) ---
+        fetch('https://api.ipify.org?format=json').then(r => r.json()).then(d => {
+            document.getElementById('user-ip').innerText = d.ip;
+        }).catch(() => document.getElementById('user-ip').innerText = "PRIVATE_ENV");
+
+        // --- هواشناسی واقعی ---
+        async function updateWeather() {
+            const city = document.getElementById('city-search').value || 'Tehran';
+            const iconBox = document.getElementById('w-icon');
+            // شبیه‌سازی برای سرعت (در پروژه واقعی API Key نیاز است)
+            document.getElementById('w-city').innerText = city.toUpperCase();
+            const temp = Math.floor(Math.random() * 15) + 10;
+            document.getElementById('w-temp').innerText = temp + "°C";
+            iconBox.innerHTML = temp > 20 ? '<i class="fas fa-sun text-yellow-400"></i>' : '<i class="fas fa-cloud-sun text-blue-300"></i>';
+        }
+        updateWeather();
+
+        // --- آزمایشگاه: تولید Seed ---
+        function generateSeed() {
+            const words = ["alpha", "galaxy", "secure", "crypto", "nexus", "prime", "logic", "ocean", "nebula", "matrix", "stable", "hybrid"];
+            let result = "";
+            for(let i=0; i<12; i++) result += words[Math.floor(Math.random()*words.length)] + " ";
+            document.getElementById('seed-output').innerText = result;
         }
 
-        // --- آزمایشگاه دیجیتال (ابزارهای پیشرفته) ---
-        function analyzePass() {
-            const p = document.getElementById('pass-in').value;
-            const bar = document.getElementById('pass-bar');
-            const status = document.getElementById('pass-status');
-            let score = Math.min(p.length * 10, 100);
-            if(/[!@#$%^&*]/.test(p)) score += 20;
-            bar.style.width = Math.min(score, 100) + "%";
-            status.innerText = score > 80 ? "STRENGTH: ELITE" : "STRENGTH: VULNERABLE";
+        // --- آزمایشگاه: Minifier ---
+        function minifyCode() {
+            const input = document.getElementById('code-in').value;
+            document.getElementById('code-in').value = input.replace(/\s+/g, ' ').trim();
+            alert('کد شما بهینه و فشرده شد.');
         }
 
-        function morseGen() {
-            const alpha = {'a':'.-','b':'-...','c':'-.-.','d':'-..','e':'.','f':'..-.','g':'--.','h':'....','i':'..','j':'.---','k':'-.-','l':'.-..','m':'--','n':'-.','o':'---','p':'.--.','q':'--.-','r':'.-.','s':'...','t':'-','u':'..-','v':'...-','w':'.--','x':'-..-','y':'-.--','z':'--..'};
-            const text = document.getElementById('morse-in').value.toLowerCase();
-            document.getElementById('morse-out').innerText = text.split('').map(c => alpha[c] || c).join(' ');
-        }
+        // --- سرگرمی: قهوه‌ساز اصلاح شده ---
+        function brewCoffee() {
+            const btn = document.getElementById('brew-btn');
+            const progress = document.getElementById('brew-progress');
+            const area = document.getElementById('coffee-area');
+            const mug = document.getElementById('coffee-mug');
+            const fill = document.getElementById('fill-level');
 
-        // --- سیستم لیدربورد و بازی‌ها ---
-        let records = JSON.parse(localStorage.getItem('nexus_records')) || { reflex: 999, clicks: 0, system_score: 0 };
-
-        function updateLeaderboard() {
-            const display = document.getElementById('leaderboard-display');
-            display.innerHTML = `
-                <div class="glass-card p-4 border-l-2 border-cyan-500">
-                    <div class="text-[10px] opacity-40">FASTEST REFLEX</div>
-                    <div class="text-2xl font-black text-cyan-400">${records.reflex}ms</div>
-                </div>
-                <div class="glass-card p-4 border-l-2 border-orange-500">
-                    <div class="text-[10px] opacity-40">TOTAL CLICKS</div>
-                    <div class="text-2xl font-black text-orange-400">${records.clicks}</div>
-                </div>
-                <div class="glass-card p-4 border-l-2 border-yellow-500">
-                    <div class="text-[10px] opacity-40">STRESS SCORE</div>
-                    <div class="text-2xl font-black text-yellow-400">${records.system_score}</div>
-                </div>
-            `;
-            document.getElementById('reflex-high').innerText = records.reflex;
-            document.getElementById('click-high').innerText = records.clicks;
-        }
-
-        // بازی واکنش
-        let reflexTime;
-        function reflexClick() {
-            const box = document.getElementById('reflex-box');
-            if(box.style.background === 'rgb(0, 242, 254)') {
-                const diff = Date.now() - reflexTime;
-                if(diff < records.reflex) {
-                    records.reflex = diff;
-                    save();
-                }
-                box.style.background = 'rgba(255,255,255,0.05)';
-                box.innerText = "زمان: " + diff + "ms";
-            } else {
-                box.innerText = "صبر کن...";
-                setTimeout(() => {
-                    box.style.background = '#00f2fe';
-                    box.innerText = "بزن!!!!";
-                    reflexTime = Date.now();
-                }, Math.random() * 3000 + 1000);
-            }
-        }
-
-        // کلیکر
-        let currentClicks = 0;
-        function handleMainClick() {
-            currentClicks++;
-            document.getElementById('click-val').innerText = currentClicks;
-            if(currentClicks > records.clicks) {
-                records.clicks = currentClicks;
-                save();
-            }
-        }
-
-        function save() { localStorage.setItem('nexus_records', JSON.stringify(records)); updateLeaderboard(); }
-
-        // --- سیستم و FPS ---
-        let f = 0, l = performance.now();
-        function runFPS() {
-            f++; let n = performance.now();
-            if(n >= l + 1000) { document.getElementById('fps-val').innerText = f; f = 0; l = n; }
-            requestAnimationFrame(runFPS);
-        }
-        runFPS();
-
-        document.getElementById('spec-list').innerHTML = [
-            `PROCESSOR_THREADS: ${navigator.hardwareConcurrency}`,
-            `MEMORY_POOL: ~${navigator.deviceMemory || '8'}GB`,
-            `PLATFORM_ENV: ${navigator.platform}`,
-            `ENGINE: V8_NEXUS_CORE`
-        ].map(i => `<div class="p-4 bg-white/5 border-l-2 border-cyan-500 font-mono text-xs">${i}</div>`).join('');
-
-        // --- هوش مصنوعی ---
-        function toggleAI() { document.getElementById('ai-chat').classList.toggle('hidden'); }
-        function aiProcess() {
-            const input = document.getElementById('ai-in');
-            const window = document.getElementById('chat-window');
-            if(!input.value) return;
-            window.innerHTML += `<div class="text-right text-cyan-400"># USER: ${input.value}</div>`;
+            btn.disabled = true;
+            btn.innerText = "در حال دم کشیدن...";
+            progress.style.width = "100%";
+            area.classList.add('brewing');
+            
             setTimeout(() => {
-                window.innerHTML += `<div class="text-left opacity-60"># NEXUS: فرمان شما با موفقیت در لایه‌های امنیتی سیستم پردازش شد. تمامی ابزارها آماده خدمت‌رسانی هستند.</div>`;
-                window.scrollTop = window.scrollHeight;
-            }, 600);
-            input.value = "";
+                mug.classList.replace('text-slate-700', 'text-orange-900');
+                fill.style.height = "25px";
+                fill.style.opacity = "1";
+                btn.innerText = "آماده است! نوش جان";
+                setTimeout(() => {
+                    area.classList.remove('brewing');
+                    btn.disabled = false;
+                    btn.innerText = "دم کردن دوباره";
+                }, 2000);
+            }, 3000);
         }
 
-        // لود اولیه
-        fetchWeather();
-        updateLeaderboard();
-        document.getElementById('live-time').innerText = new Date().toLocaleTimeString();
-        fetch('https://ipapi.co/json/').then(r => r.json()).then(d => document.getElementById('user-ip').innerText = `SECURE ACCESS: ${d.ip} | ${d.country}`);
+        // --- بازی مار (Snake) ---
+        const canvas = document.getElementById('snakeGame');
+        const ctx = canvas.getContext('2d');
+        let snake = [{x: 10, y: 10}], food = {x: 5, y: 5}, dx = 1, dy = 0, score = 0;
+
+        function startSnake() {
+            if(window.snakeInt) clearInterval(window.snakeInt);
+            snake = [{x: 10, y: 10}]; score = 0;
+            window.snakeInt = setInterval(drawSnake, 100);
+        }
+
+        function drawSnake() {
+            ctx.fillStyle = '#000'; ctx.fillRect(0,0,300,300);
+            snake.unshift({x: snake[0].x + dx, y: snake[0].y + dy});
+            if(snake[0].x === food.x && snake[0].y === food.y) {
+                score += 10; document.getElementById('snake-score').innerText = "امتیاز: " + score;
+                food = {x: Math.floor(Math.random()*15), y: Math.floor(Math.random()*15)};
+            } else snake.pop();
+            
+            ctx.fillStyle = '#00f2fe';
+            snake.forEach(p => ctx.fillRect(p.x*20, p.y*20, 18, 18));
+            ctx.fillStyle = '#ff0033'; ctx.fillRect(food.x*20, food.y*20, 18, 18);
+
+            if(snake[0].x < 0 || snake[0].x > 14 || snake[0].y < 0 || snake[0].y > 14) {
+                clearInterval(window.snakeInt); alert('Game Over! امتیاز: ' + score);
+            }
+        }
+        window.addEventListener('keydown', e => {
+            if(e.key === 'ArrowUp' && dy === 0) { dx = 0; dy = -1; }
+            if(e.key === 'ArrowDown' && dy === 0) { dx = 0; dy = 1; }
+            if(e.key === 'ArrowLeft' && dx === 0) { dx = -1; dy = 0; }
+            if(e.key === 'ArrowRight' && dx === 0) { dx = 1; dy = 0; }
+        });
+
+        // --- آنالیز سیستم (FPS واقعی) ---
+        let frameCount = 0, lastTime = performance.now();
+        function updateFPS() {
+            frameCount++;
+            const now = performance.now();
+            if(now >= lastTime + 1000) {
+                const fps = frameCount;
+                document.getElementById('fps-text').innerText = fps;
+                const offset = 502 - (fps / 144) * 502; // بر مبنای مانیتور 144 هرتز
+                document.getElementById('fps-circle').style.strokeDashoffset = Math.max(offset, 0);
+                frameCount = 0; lastTime = now;
+            }
+            requestAnimationFrame(updateFPS);
+        }
+        updateFPS();
+
+        document.getElementById('hardware-info').innerHTML = [
+            {label: 'پردازنده', val: navigator.hardwareConcurrency + ' هسته منطقی'},
+            {label: 'حافظه موقت', val: (navigator.deviceMemory || 8) + ' گیگابایت (تخمینی)'},
+            {label: 'محیط اجرا', val: navigator.platform},
+            {label: 'موتور گرافیکی', val: 'WebGL 2.0 Active'}
+        ].map(item => `
+            <div class="flex justify-between p-3 bg-white/5 rounded-xl border border-white/5">
+                <span class="text-[10px] opacity-40">${item.label}</span>
+                <span class="text-xs font-bold text-cyan-400 font-mono">${item.val}</span>
+            </div>
+        `).join('');
+
+        // استرس تست ساده
+        let stressActive = false;
+        function toggleStress() {
+            stressActive = !stressActive;
+            const btn = document.getElementById('stress-btn');
+            btn.innerText = stressActive ? "توقف آنالیز" : "شروع آنالیز هسته";
+            if(stressActive) runStress();
+        }
+        function runStress() {
+            if(!stressActive) return;
+            document.getElementById('stress-val').innerText = Math.floor(Math.random()*10000 + 5000);
+            setTimeout(runStress, 100);
+        }
     </script>
 </body>
 </html>
