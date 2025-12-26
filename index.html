@@ -3,350 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sina OS | Ultimate Super Dashboard 2025</title>
+    <title>REZA NEXUS OS | Global Edition 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;900&display=swap');
         
         :root {
-            --bg: #0f172a;
-            --glass: rgba(255, 255, 255, 0.05);
-            --text: white;
-            --accent: #3b82f6;
-        }
-
-        .light-theme {
-            --bg: #f1f5f9;
-            --glass: rgba(0, 0, 0, 0.05);
-            --text: #1e293b;
-            --accent: #2563eb;
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --accent: #f093fb;
+            --bg: #050505;
         }
 
         body { 
             font-family: 'Vazirmatn', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            transition: all 0.5s ease;
-            min-height: 100vh;
-            margin: 0;
+            background-color: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        .glass { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.3s ease; }
-        .glass:hover { border-color: var(--accent); }
+        /* پس‌زمینه نئونی متحرک */
+        .nexus-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: radial-gradient(circle at 50% 50%, #0a0a1a 0%, #050505 100%);
+        }
+        .orb {
+            position: absolute; width: 600px; height: 600px; border-radius: 50%;
+            filter: blur(120px); opacity: 0.3; z-index: -1; animation: moveOrb 25s infinite alternate;
+        }
+        @keyframes moveOrb {
+            0% { transform: translate(-30%, -30%) rotate(0deg); background: var(--primary); }
+            100% { transform: translate(50%, 50%) rotate(360deg); background: var(--accent); }
+        }
 
-        .tab-content { display: none; animation: slideUp 0.4s ease-out; }
-        .active { display: block; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(0, 242, 254, 0.15);
+        }
+
+        .leaderboard-list { font-size: 0.7rem; color: #00f2fe; }
+        .tab-btn.active { border-bottom: 3px solid var(--primary); color: var(--primary); }
         
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .steam { animation: steamMove 2s infinite ease-out; opacity: 0; }
-        @keyframes steamMove {
-            0% { transform: translateY(0) scale(1); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: translateY(-40px) scale(1.5); opacity: 0; }
-        }
-
-        .bg-animate {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: linear-gradient(45deg, #0f172a, #1e1b4b, #312e81);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        /* انیمیشن لودینگ قهوه و سیستم */
+        .loader-bar { height: 4px; background: var(--primary); transition: width 0.3s; box-shadow: 0 0 15px var(--primary); }
     </style>
 </head>
-<body class="p-4 md:p-8">
-    <div class="bg-animate" id="bg-anim"></div>
+<body class="p-4 md:p-12">
+    <div class="nexus-bg">
+        <div class="orb"></div>
+        <div class="orb" style="animation-delay: -12s; right: 0; top: 0;"></div>
+    </div>
 
-    <header class="flex justify-between items-center mb-8 glass p-4 rounded-3xl shadow-2xl">
-        <div class="flex items-center gap-4">
-            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50">
-                <i class="fas fa-user-astronaut text-2xl text-white"></i>
+    <header class="flex flex-col md:flex-row justify-between items-center mb-12 animate__animated animate__fadeIn">
+        <div class="flex items-center gap-6 mb-6 md:mb-0">
+            <div class="relative group">
+                <div class="absolute inset-0 bg-cyan-500 blur-2xl opacity-40 group-hover:opacity-70 transition rounded-full"></div>
+                <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Sina" class="w-20 h-20 rounded-3xl relative border border-cyan-400/50 bg-black/50 p-2">
             </div>
             <div>
-                <h1 class="font-black text-xl">SINA DASHBOARD</h1>
-                <p id="live-clock" class="text-xs opacity-60 font-mono">۰۰:۰۰:۰۰</p>
+                <h1 class="text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">NEXUS ELITE</h1>
+                <p id="live-time" class="text-xs font-mono opacity-60 tracking-[0.4em]">LOADING SYSTEM...</p>
             </div>
         </div>
-        <button onclick="toggleTheme()" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-blue-500 transition shadow-lg">
-            <i id="theme-icon" class="fas fa-moon"></i>
-        </button>
+        <nav class="glass-card px-8 py-4 flex gap-10">
+            <button onclick="showSection('home')" class="tab-btn font-bold hover:text-cyan-400 transition">خانه</button>
+            <button onclick="showSection('tools')" class="tab-btn font-bold hover:text-cyan-400 transition">آزمایشگاه</button>
+            <button onclick="showSection('games')" class="tab-btn font-bold hover:text-cyan-400 transition">گیم‌سنتر</button>
+            <button onclick="showSection('sys')" class="tab-btn font-bold hover:text-cyan-400 transition">سیستم</button>
+        </nav>
     </header>
 
-    <nav class="glass sticky top-4 z-50 p-2 rounded-2xl flex flex-wrap justify-around gap-2 mb-8 shadow-xl">
-        <button onclick="showTab('home')" class="p-3 rounded-xl hover:bg-blue-600/20 transition flex items-center gap-2"><i class="fas fa-home"></i><span>خانه</span></button>
-        <button onclick="showTab('tools')" class="p-3 rounded-xl hover:bg-blue-600/20 transition flex items-center gap-2"><i class="fas fa-box-open"></i><span>ابزارها</span></button>
-        <button onclick="showTab('entertainment')" class="p-3 rounded-xl hover:bg-blue-600/20 transition flex items-center gap-2"><i class="fas fa-gamepad"></i><span>سرگرمی</span></button>
-        <button onclick="showTab('system')" class="p-3 rounded-xl hover:bg-blue-600/20 transition flex items-center gap-2"><i class="fas fa-microchip"></i><span>سیستم</span></button>
-    </nav>
-
-    <main id="home" class="tab-content active">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="md:col-span-2 glass p-10 rounded-[3rem] relative overflow-hidden flex flex-col justify-center">
-                <h2 class="text-5xl font-black mb-6 leading-tight">سلام رییس!<br>مرکز فرماندهی آماده است.</h2>
-                <div class="flex gap-4 flex-wrap">
-                    <div class="glass px-6 py-2 rounded-full text-sm font-mono border-blue-500/30">IP: <span id="ip">127.0.0.1</span></div>
-                    <div class="glass px-6 py-2 rounded-full text-sm border-purple-500/30">موقعیت: <span id="loc">ایران</span></div>
+    <main id="home" class="section active space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="md:col-span-2 glass-card p-12 flex flex-col justify-center">
+                <h2 class="text-7xl font-black mb-6 leading-none">فرمانده،<br><span class="text-cyan-400 italic">خوش آمدید.</span></h2>
+                <div class="flex gap-6 items-center">
+                    <div class="h-2 w-32 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-cyan-500 w-3/4 animate-pulse"></div></div>
+                    <span id="user-ip" class="text-xs font-mono opacity-50 tracking-widest uppercase">Detecting Secure IP...</span>
                 </div>
             </div>
-            <div class="glass p-8 rounded-[3rem] flex flex-col items-center justify-center text-center">
-                <div id="weather-icon" class="text-6xl mb-4 text-cyan-400 animate-pulse"><i class="fas fa-cloud-sun"></i></div>
-                <h3 class="text-4xl font-black" id="weather-temp">۲۸°C</h3>
-                <p class="opacity-60 mt-2 text-lg" id="weather-desc">آسمان صاف</p>
-                <div class="mt-4 w-full px-4 text-xs opacity-40">دیتای زنده از ایستگاه محلی</div>
+            <div class="glass-card p-8 text-center relative overflow-hidden group">
+                <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                <input id="city-input" type="text" placeholder="نام شهر به انگلیسی..." class="bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm w-full mb-4 outline-none focus:border-cyan-400 text-center">
+                <button onclick="fetchWeather()" class="w-full bg-cyan-600/20 border border-cyan-500/50 rounded-2xl py-3 text-xs font-black uppercase tracking-widest hover:bg-cyan-600 transition mb-6">Update Atmosphere</button>
+                <div id="w-icon" class="text-6xl text-cyan-400 mb-2"><i class="fas fa-bolt-lightning"></i></div>
+                <h3 id="temp" class="text-6xl font-black">--°</h3>
+                <p id="city-display" class="opacity-40 text-xs mt-2 uppercase tracking-tighter">LOCATION PENDING</p>
             </div>
         </div>
     </main>
 
-    <section id="tools" class="tab-content grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="glass p-6 rounded-3xl">
-            <h4 class="font-bold mb-4"><i class="fas fa-key text-yellow-500 ml-2"></i>پسورد ساز</h4>
-            <div id="pass-display" class="bg-black/20 p-2 rounded mb-2 font-mono text-center text-blue-400 select-all">********</div>
-            <button onclick="genPass()" class="w-full bg-blue-600 py-2 rounded-xl text-xs font-bold hover:bg-blue-500 transition">تولید پسورد ایمن</button>
+    <section id="tools" class="section hidden grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-card p-8 border-t-2 border-red-500">
+            <div class="flex justify-between items-center mb-6">
+                <h4 class="font-black text-xl italic">Security Scan</h4>
+                <i class="fas fa-fingerprint text-red-500 text-2xl"></i>
+            </div>
+            <input id="pass-in" oninput="analyzePass()" type="password" placeholder="کلمه عبور جهت آنالیز..." class="w-full bg-black/50 rounded-2xl p-4 text-sm mb-4 outline-none border border-white/10 focus:border-red-500">
+            <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden mb-4">
+                <div id="pass-bar" class="h-full w-0 bg-red-500 transition-all duration-700"></div>
+            </div>
+            <p id="pass-status" class="text-[10px] font-mono opacity-50">STRENGTH: NULL</p>
         </div>
-        <div class="glass p-6 rounded-3xl">
-            <h4 class="font-bold mb-4"><i class="fas fa-calendar-alt text-green-500 ml-2"></i>سن‌سنج دقیق</h4>
-            <input type="date" id="b-day" class="w-full bg-white/10 rounded mb-2 text-xs p-2 outline-none border border-white/10">
-            <button onclick="calcAge()" class="w-full bg-green-600 py-2 rounded-xl text-xs font-bold hover:bg-green-500 transition">محاسبه سن</button>
-            <div id="age-res" class="text-xs mt-2 text-center font-bold text-green-400"></div>
+
+        <div class="glass-card p-8 border-t-2 border-cyan-500">
+            <h4 class="font-black text-xl mb-6 italic text-cyan-400">Morse Terminal</h4>
+            <textarea id="morse-in" oninput="morseGen()" placeholder="پیام خود را تایپ کنید..." class="w-full h-24 bg-black/50 rounded-2xl p-4 text-xs mb-4 outline-none border border-white/10 focus:border-cyan-500 resize-none"></textarea>
+            <div id="morse-out" class="font-mono text-cyan-500 text-lg tracking-widest break-all"></div>
         </div>
-        <div class="glass p-6 rounded-3xl flex flex-col justify-between">
-            <h4 class="font-bold mb-2"><i class="fas fa-keyboard text-blue-400 ml-2"></i>سرعت تایپ</h4>
-            <p class="text-[10px] mb-2 opacity-60">"تکنولوژی ابزاری برای تغییر جهان است."</p>
-            <input type="text" placeholder="شروع به تایپ..." class="w-full bg-white/10 rounded p-2 outline-none text-xs border border-white/10 focus:border-blue-500">
-        </div>
-        <div class="glass p-6 rounded-3xl text-center flex flex-col justify-center items-center gap-3">
-             <i class="fas fa-exchange-alt text-3xl text-pink-500"></i>
-             <span class="text-sm font-bold">مبدل ارز و واحدها</span>
-             <p class="text-[10px] opacity-50">به‌زودی در آپدیت جدید</p>
+
+        <div class="glass-card p-8 border-t-2 border-yellow-500 text-center">
+            <h4 class="font-black text-xl mb-4 italic text-yellow-500">GPU Stress Test</h4>
+            <canvas id="stress-canvas" class="w-full h-32 bg-black/20 rounded-2xl mb-4"></canvas>
+            <button onclick="runStress()" id="stress-btn" class="px-8 py-3 bg-yellow-500/20 text-yellow-500 border border-yellow-500/50 rounded-full text-xs font-black">START BENCHMARK</button>
+            <div id="benchmark-res" class="mt-4 text-2xl font-mono text-white">SCORE: --</div>
         </div>
     </section>
 
-    <section id="entertainment" class="tab-content">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass p-8 rounded-[2.5rem] text-center">
-                <h3 class="font-bold mb-4 text-orange-400 text-xl">کافه‌تریای هوشمند</h3>
-                <div class="relative py-10">
-                    <i id="cup" class="fas fa-coffee text-[80px] text-orange-900 transition-all duration-1000"></i>
-                    <div id="steams" class="absolute top-0 left-1/2 -translate-x-1/2 flex gap-2">
-                        <span class="steam text-2xl">~</span><span class="steam text-2xl" style="animation-delay: 0.5s">~</span>
-                    </div>
-                </div>
-                <div id="coffee-bar" class="w-full h-3 bg-white/10 rounded-full hidden mb-4 overflow-hidden border border-white/5">
-                    <div id="coffee-progress" class="h-full bg-gradient-to-r from-orange-800 to-orange-400 w-0 transition-all"></div>
-                </div>
-                <button onclick="startBrewing()" id="brew-btn" class="bg-orange-800 px-8 py-3 rounded-2xl hover:bg-orange-700 transition shadow-lg font-bold w-full">دم کردن قهوه</button>
+    <section id="games" class="section hidden space-y-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="glass-card p-6 flex flex-col items-center">
+                <span class="text-[10px] opacity-40 mb-4 font-black">REFLEX TEST</span>
+                <div id="reflex-box" onclick="reflexClick()" class="w-full h-32 bg-white/5 rounded-3xl cursor-pointer flex items-center justify-center text-xs font-black transition-all">آماده؟</div>
+                <div class="mt-4 text-cyan-400 text-xs font-mono">رکورد: <span id="reflex-high">--</span>ms</div>
             </div>
 
-            <div class="glass p-8 rounded-[2.5rem] text-center flex flex-col justify-between border-t-4 border-purple-500/50">
-                <h3 class="font-bold mb-4 text-purple-400 text-xl">فال و تقدیر</h3>
-                <div id="fortune-box" class="min-h-[120px] flex items-center justify-center italic text-sm leading-8 text-purple-100 px-2">
-                    نیت کنید و بر دکمه کلیک کنید تا رازی از غیب برایتان فاش شود...
-                </div>
-                <button onclick="getSuperFortune()" class="bg-gradient-to-r from-purple-700 to-indigo-700 w-full py-4 rounded-2xl font-bold mt-4 shadow-xl hover:scale-105 transition">مشاهده فال</button>
+            <div class="glass-card p-6 flex flex-col items-center">
+                <span class="text-[10px] opacity-40 mb-2 font-black">ULTIMATE CLICKER</span>
+                <div id="click-val" class="text-4xl font-black mb-4">۰</div>
+                <button onclick="handleMainClick()" class="w-20 h-20 bg-gradient-to-tr from-cyan-500 to-blue-600 rounded-full shadow-[0_0_30px_rgba(6,182,212,0.5)] border-4 border-white/20 active:scale-90 transition"></button>
+                <div class="mt-4 text-cyan-400 text-xs font-mono">بیشترین کلیک: <span id="click-high">۰</span></div>
             </div>
 
-            <div class="glass p-8 rounded-[2.5rem] text-center">
-                <h3 class="font-bold mb-4 text-red-400 text-xl">بازی کلیکر</h3>
-                <p class="text-sm mb-6 opacity-70">امتیاز: <span id="score" class="font-mono text-xl text-white">۰</span></p>
-                <button onclick="addScore()" class="w-28 h-28 bg-red-600 rounded-full border-[10px] border-red-900 active:scale-90 transition shadow-2xl mx-auto flex items-center justify-center font-black text-2xl shadow-red-500/20">CLICK</button>
+            <div class="glass-card p-6 flex flex-col items-center">
+                <span class="text-[10px] opacity-40 mb-4 font-black">NUMBER BRAIN</span>
+                <input id="num-guess" type="number" placeholder="1-100" class="w-full bg-white/5 p-2 rounded-xl text-center mb-2 outline-none border border-white/10">
+                <button onclick="playGuess()" class="bg-white/10 w-full py-2 rounded-xl text-[10px] font-black">CHECK</button>
+                <div id="guess-hint" class="mt-2 text-[9px] text-yellow-500">یک عدد حدس بزن!</div>
+            </div>
+
+            <div class="glass-card p-6 flex flex-col items-center">
+                <span class="text-[10px] opacity-40 mb-4 font-black">COFFEE ENGINE</span>
+                <i id="cup" class="fas fa-mug-hot text-5xl opacity-20 transition-all"></i>
+                <div class="w-full h-1 bg-white/5 mt-6 rounded-full overflow-hidden"><div id="brew-bar" class="h-full w-0 bg-orange-500"></div></div>
+                <button onclick="brewCoffee()" class="mt-4 text-[10px] font-black text-orange-400 uppercase">Start Brewing</button>
+            </div>
+        </div>
+
+        <div class="glass-card p-10">
+            <h3 class="text-2xl font-black mb-8 italic"><i class="fas fa-trophy text-yellow-500 ml-4"></i>HALL OF FAME (Local)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12" id="leaderboard-display">
+                </div>
+        </div>
+    </section>
+
+    <section id="sys" class="section hidden">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 glass-card p-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-10 opacity-5 text-8xl font-black italic">NEXUS</div>
+            <div class="space-y-8 relative z-10">
+                <h3 class="text-4xl font-black text-cyan-400 italic">SYSTEM_CORE</h3>
+                <div id="spec-list" class="space-y-4"></div>
+            </div>
+            <div class="flex flex-col items-center justify-center relative">
+                <div class="w-64 h-64 border-8 border-cyan-500/20 rounded-full flex flex-col items-center justify-center animate__animated animate__pulse animate__infinite">
+                    <span id="fps-val" class="text-8xl font-black text-cyan-400 tracking-tighter">--</span>
+                    <span class="text-xs opacity-40 font-black tracking-[0.5em]">HERTZ</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="system" class="tab-content glass p-10 rounded-[3rem]">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="space-y-6">
-                <h3 class="text-3xl font-black text-blue-500">Hardware Info</h3>
-                <div id="sys-details" class="grid gap-4 text-sm"></div>
-            </div>
-            <div class="text-center bg-black/30 p-10 rounded-[2rem] border border-white/10 shadow-inner">
-                <div class="text-8xl font-black text-green-400 mb-2 font-mono tracking-tighter" id="fps-val">--</div>
-                <p class="text-xl opacity-60 font-bold">FPS / Refresh Rate</p>
-                <div class="mt-6 text-[10px] opacity-30">قدرت رندر زنده نمایشگر شما</div>
+    <div id="ai-container" class="fixed bottom-10 left-10 z-[5000]">
+        <div id="ai-chat" class="hidden w-80 glass-card p-6 mb-4 animate__animated animate__fadeInUp border-l-4 border-cyan-500">
+            <div class="text-[10px] font-black opacity-40 mb-4 uppercase tracking-widest">Nexus AI Interface</div>
+            <div id="chat-window" class="h-48 overflow-y-auto space-y-4 mb-4 pr-2 text-[11px] font-light"></div>
+            <div class="flex gap-2">
+                <input id="ai-in" type="text" placeholder="فرمانی صادر کنید..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 w-full text-xs outline-none">
+                <button onclick="aiProcess()" class="bg-cyan-600 px-4 rounded-xl"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
-    </section>
-
-    <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-16 h-16 bg-blue-600 rounded-full shadow-2xl flex items-center justify-center text-white text-2xl z-[1000] hover:scale-110 transition active:scale-95 shadow-blue-500/50">
-        <i id="chat-icon" class="fas fa-robot"></i>
-    </button>
-
-    <div id="chat-panel" class="fixed bottom-24 right-6 w-80 h-[450px] glass rounded-[2rem] shadow-2xl z-[1000] flex flex-col overflow-hidden translate-y-20 opacity-0 pointer-events-none transition-all duration-300 border border-blue-500/20">
-        <div class="p-4 bg-blue-600/20 border-b border-white/10 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span class="font-bold text-xs uppercase tracking-widest">Sina AI Assistant</span>
-            </div>
-            <button onclick="toggleChat()"><i class="fas fa-times opacity-50"></i></button>
-        </div>
-        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4 text-[11px] leading-5">
-            <div class="bg-blue-600/20 p-3 rounded-2xl rounded-tr-none self-start max-w-[85%]">
-                سلام رییس! من هوش مصنوعی سایت هستم. چطور می‌تونم بهت کمک کنم؟ 🤖
-            </div>
-        </div>
-        <div class="p-3 bg-black/30 flex gap-2">
-            <input id="chat-input" type="text" placeholder="سوالت رو اینجا بپرس..." class="bg-white/5 border border-white/10 rounded-xl px-3 py-2 w-full outline-none focus:border-blue-500 transition text-[11px]">
-            <button onclick="sendChatMessage()" class="bg-blue-600 w-10 h-10 rounded-xl flex items-center justify-center hover:bg-blue-500 transition shadow-lg">
-                <i class="fas fa-paper-plane text-xs"></i>
-            </button>
-        </div>
+        <button onclick="toggleAI()" class="w-16 h-16 bg-cyan-600 rounded-[2rem] shadow-[0_0_30px_rgba(6,182,212,0.4)] flex items-center justify-center text-2xl hover:scale-110 active:scale-90 transition">
+            <i class="fas fa-brain"></i>
+        </button>
     </div>
 
     <script>
-        // --- تنظیمات پایه ---
-        function toggleTheme() {
-            document.body.classList.toggle('light-theme');
-            const icon = document.getElementById('theme-icon');
-            const bg = document.getElementById('bg-anim');
-            if(document.body.classList.contains('light-theme')) {
-                icon.className = 'fas fa-sun text-yellow-500';
-                bg.style.background = 'linear-gradient(45deg, #e2e8f0, #cbd5e1)';
-            } else {
-                icon.className = 'fas fa-moon text-blue-400';
-                bg.style.background = 'linear-gradient(45deg, #0f172a, #1e1b4b, #312e81)';
-            }
+        // --- هسته مدیریت بخش‌ها ---
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('animate__animated', 'animate__fadeIn');
+            updateLeaderboard();
         }
 
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('live-clock').innerText = now.toLocaleTimeString('fa-IR');
-        }, 1000);
-
-        function showTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+        // --- سیستم هواشناسی هوشمند ---
+        async function fetchWeather() {
+            const city = document.getElementById('city-input').value || 'Tehran';
+            document.getElementById('city-display').innerText = "CONNECTING TO STATION...";
+            try {
+                // شبیه‌سازی دریافت داده (در حالت واقعی از OpenWeather استفاده کنید)
+                setTimeout(() => {
+                    const temp = Math.floor(Math.random() * 30) + 5;
+                    document.getElementById('temp').innerText = temp + "°";
+                    document.getElementById('city-display').innerText = city.toUpperCase();
+                }, 1000);
+            } catch(e) { alert('خطا در اتصال به ماهواره!'); }
         }
 
-        // --- ابزارها ---
-        function genPass() {
-            const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-            let p = Array.from({length: 12}, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
-            document.getElementById('pass-display').innerText = p;
+        // --- آزمایشگاه دیجیتال (ابزارهای پیشرفته) ---
+        function analyzePass() {
+            const p = document.getElementById('pass-in').value;
+            const bar = document.getElementById('pass-bar');
+            const status = document.getElementById('pass-status');
+            let score = Math.min(p.length * 10, 100);
+            if(/[!@#$%^&*]/.test(p)) score += 20;
+            bar.style.width = Math.min(score, 100) + "%";
+            status.innerText = score > 80 ? "STRENGTH: ELITE" : "STRENGTH: VULNERABLE";
         }
 
-        function calcAge() {
-            const b = document.getElementById('b-day').value;
-            if(!b) return;
-            const days = Math.floor((new Date() - new Date(b)) / (1000*60*60*24));
-            document.getElementById('age-res').innerText = `${days.toLocaleString('fa-IR')} روز از تولد شما می‌گذرد.`;
+        function morseGen() {
+            const alpha = {'a':'.-','b':'-...','c':'-.-.','d':'-..','e':'.','f':'..-.','g':'--.','h':'....','i':'..','j':'.---','k':'-.-','l':'.-..','m':'--','n':'-.','o':'---','p':'.--.','q':'--.-','r':'.-.','s':'...','t':'-','u':'..-','v':'...-','w':'.--','x':'-..-','y':'-.--','z':'--..'};
+            const text = document.getElementById('morse-in').value.toLowerCase();
+            document.getElementById('morse-out').innerText = text.split('').map(c => alpha[c] || c).join(' ');
         }
 
-        // --- سرگرمی ---
-        function startBrewing() {
-            const btn = document.getElementById('brew-btn'), bar = document.getElementById('coffee-bar'), 
-                  prog = document.getElementById('coffee-progress'), cup = document.getElementById('cup');
-            btn.disabled = true; btn.innerText = "در حال دم کردن..."; bar.classList.remove('hidden');
-            let w = 0;
-            const intv = setInterval(() => {
-                w += 2; prog.style.width = w + "%";
-                if(w >= 100) {
-                    clearInterval(intv); btn.innerText = "آماده نوشیدن! ☕";
-                    cup.classList.add('text-orange-600', 'scale-125');
-                    document.querySelectorAll('.steam').forEach(s => s.style.opacity = '1');
-                    setTimeout(() => {
-                        bar.classList.add('hidden'); prog.style.width = "0%";
-                        btn.disabled = false; btn.innerText = "دم کردن مجدد";
-                    }, 5000);
+        // --- سیستم لیدربورد و بازی‌ها ---
+        let records = JSON.parse(localStorage.getItem('nexus_records')) || { reflex: 999, clicks: 0, system_score: 0 };
+
+        function updateLeaderboard() {
+            const display = document.getElementById('leaderboard-display');
+            display.innerHTML = `
+                <div class="glass-card p-4 border-l-2 border-cyan-500">
+                    <div class="text-[10px] opacity-40">FASTEST REFLEX</div>
+                    <div class="text-2xl font-black text-cyan-400">${records.reflex}ms</div>
+                </div>
+                <div class="glass-card p-4 border-l-2 border-orange-500">
+                    <div class="text-[10px] opacity-40">TOTAL CLICKS</div>
+                    <div class="text-2xl font-black text-orange-400">${records.clicks}</div>
+                </div>
+                <div class="glass-card p-4 border-l-2 border-yellow-500">
+                    <div class="text-[10px] opacity-40">STRESS SCORE</div>
+                    <div class="text-2xl font-black text-yellow-400">${records.system_score}</div>
+                </div>
+            `;
+            document.getElementById('reflex-high').innerText = records.reflex;
+            document.getElementById('click-high').innerText = records.clicks;
+        }
+
+        // بازی واکنش
+        let reflexTime;
+        function reflexClick() {
+            const box = document.getElementById('reflex-box');
+            if(box.style.background === 'rgb(0, 242, 254)') {
+                const diff = Date.now() - reflexTime;
+                if(diff < records.reflex) {
+                    records.reflex = diff;
+                    save();
                 }
-            }, 50);
-        }
-
-        function getSuperFortune() {
-            const fortunes = [
-                "گشایشی در کار تو پدید می‌آید که تصورش را نمی‌کردی.",
-                "صبور باش، میوه موفقیت تو در حال رسیدن است.",
-                "خبری خوش از راه دور به تو می‌رسد.",
-                "در طالع تو سفری نهفته است که روحیه‌ات را دگرگون می‌کند.",
-                "کسی به کمک تو می‌آید که انتظارش را نداری.",
-                "نیتت خیر است، به زودی به مقصود می‌رسی."
-            ];
-            const box = document.getElementById('fortune-box');
-            box.style.opacity = 0;
-            setTimeout(() => {
-                box.innerText = fortunes[Math.floor(Math.random()*fortunes.length)];
-                box.style.opacity = 1;
-            }, 300);
-        }
-
-        let score = 0;
-        function addScore() {
-            score++; document.getElementById('score').innerText = score.toLocaleString('fa-IR');
-        }
-
-        // --- سیستم ---
-        let frames = 0, lastTime = performance.now();
-        function checkFPS() {
-            frames++; let now = performance.now();
-            if (now >= lastTime + 1000) {
-                document.getElementById('fps-val').innerText = frames;
-                frames = 0; lastTime = now;
+                box.style.background = 'rgba(255,255,255,0.05)';
+                box.innerText = "زمان: " + diff + "ms";
+            } else {
+                box.innerText = "صبر کن...";
+                setTimeout(() => {
+                    box.style.background = '#00f2fe';
+                    box.innerText = "بزن!!!!";
+                    reflexTime = Date.now();
+                }, Math.random() * 3000 + 1000);
             }
-            requestAnimationFrame(checkFPS);
-        }
-        checkFPS();
-
-        const sys = [
-            `CPU Cores: ${navigator.hardwareConcurrency || 'N/A'}`,
-            `RAM Index: ~${navigator.deviceMemory || '8'}GB`,
-            `Platform: ${navigator.platform}`,
-            `Browser: ${navigator.vendor}`
-        ];
-        document.getElementById('sys-details').innerHTML = sys.map(i => `<div class="p-3 glass rounded-xl border-r-4 border-blue-500 font-mono">${i}</div>`).join('');
-
-        // --- چت‌بات هوشمند ---
-        const chatPanel = document.getElementById('chat-panel'), chatMessages = document.getElementById('chat-messages'), chatInput = document.getElementById('chat-input');
-        let isChatOpen = false;
-
-        function toggleChat() {
-            isChatOpen = !isChatOpen;
-            chatPanel.style.opacity = isChatOpen ? "1" : "0";
-            chatPanel.style.pointerEvents = isChatOpen ? "auto" : "none";
-            chatPanel.style.transform = isChatOpen ? "translateY(0)" : "translateY(20px)";
-            document.getElementById('chat-icon').className = isChatOpen ? 'fas fa-times' : 'fas fa-robot';
         }
 
-        function addMsg(text, user = false) {
-            const d = document.createElement('div');
-            d.className = user ? "bg-white/10 p-3 rounded-2xl rounded-tl-none self-end max-w-[85%] ml-auto text-left border border-white/5" : "bg-blue-600/20 p-3 rounded-2xl rounded-tr-none self-start max-w-[85%] mr-auto border border-blue-500/10";
-            d.innerText = text; chatMessages.appendChild(d);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        // کلیکر
+        let currentClicks = 0;
+        function handleMainClick() {
+            currentClicks++;
+            document.getElementById('click-val').innerText = currentClicks;
+            if(currentClicks > records.clicks) {
+                records.clicks = currentClicks;
+                save();
+            }
         }
 
-        function sendChatMessage() {
-            const v = chatInput.value.trim(); if(!v) return;
-            addMsg(v, true); chatInput.value = "";
+        function save() { localStorage.setItem('nexus_records', JSON.stringify(records)); updateLeaderboard(); }
+
+        // --- سیستم و FPS ---
+        let f = 0, l = performance.now();
+        function runFPS() {
+            f++; let n = performance.now();
+            if(n >= l + 1000) { document.getElementById('fps-val').innerText = f; f = 0; l = n; }
+            requestAnimationFrame(runFPS);
+        }
+        runFPS();
+
+        document.getElementById('spec-list').innerHTML = [
+            `PROCESSOR_THREADS: ${navigator.hardwareConcurrency}`,
+            `MEMORY_POOL: ~${navigator.deviceMemory || '8'}GB`,
+            `PLATFORM_ENV: ${navigator.platform}`,
+            `ENGINE: V8_NEXUS_CORE`
+        ].map(i => `<div class="p-4 bg-white/5 border-l-2 border-cyan-500 font-mono text-xs">${i}</div>`).join('');
+
+        // --- هوش مصنوعی ---
+        function toggleAI() { document.getElementById('ai-chat').classList.toggle('hidden'); }
+        function aiProcess() {
+            const input = document.getElementById('ai-in');
+            const window = document.getElementById('chat-window');
+            if(!input.value) return;
+            window.innerHTML += `<div class="text-right text-cyan-400"># USER: ${input.value}</div>`;
             setTimeout(() => {
-                let r = "من به عنوان دستیار هوشمند سینا، هنوز در حال یادگیری هستم!";
-                const low = v.toLowerCase();
-                if(low.includes("سلام")) r = "سلام رییس! چطور می‌تونم امروز کمکت کنم؟";
-                else if(low.includes("قهوه")) r = "کافیه بری به بخش سرگرمی و قهوه ساز رو روشن کنی!";
-                else if(low.includes("فال")) r = "بخش فال حافظ منتظر نیت شماست 🔮";
-                else if(low.includes("سیستم")) r = "مشخصات فنی دستگاهت رو می‌تونی توی بخش 'سیستم' ببینی.";
-                else if(low.includes("سن")) r = "توی بخش ابزارها، ابزار 'سن‌سنج' دقیقاً روزهای عمرت رو حساب می‌کنه.";
-                addMsg(r);
-            }, 800);
+                window.innerHTML += `<div class="text-left opacity-60"># NEXUS: فرمان شما با موفقیت در لایه‌های امنیتی سیستم پردازش شد. تمامی ابزارها آماده خدمت‌رسانی هستند.</div>`;
+                window.scrollTop = window.scrollHeight;
+            }, 600);
+            input.value = "";
         }
 
-        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendChatMessage(); });
-
-        // --- دریافت IP ---
-        fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
-            document.getElementById('ip').innerText = d.ip;
-            document.getElementById('loc').innerText = d.country_name + " (" + d.city + ")";
-            document.getElementById('weather-temp').innerText = "۲۴°C"; // دیتای ثابت برای سرعت لود
-        }).catch(() => { document.getElementById('ip').innerText = "Localhost"; });
+        // لود اولیه
+        fetchWeather();
+        updateLeaderboard();
+        document.getElementById('live-time').innerText = new Date().toLocaleTimeString();
+        fetch('https://ipapi.co/json/').then(r => r.json()).then(d => document.getElementById('user-ip').innerText = `SECURE ACCESS: ${d.ip} | ${d.country}`);
     </script>
 </body>
 </html>
