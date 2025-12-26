@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Super Personal OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;900&display=swap');
+        
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .window {
+            display: none;
+            position: absolute;
+            resize: both;
+            overflow: auto;
+            min-width: 300px;
+            z-index: 10;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .app-icon {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .app-icon:hover {
+            transform: translateY(-5px);
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        }
+    </style>
+</head>
+<body class="text-white select-none">
+
+    <div class="w-full h-10 bg-black/40 backdrop-blur-md flex justify-between items-center px-6 fixed top-0 z-[100] border-b border-white/10">
+        <div class="flex gap-4 items-center">
+            <i class="fab fa-apple text-xl"></i>
+            <span class="font-bold text-sm">Personal OS</span>
+        </div>
+        <div class="flex gap-4 items-center text-sm">
+            <span id="battery-status"><i class="fas fa-battery-full"></i> ۱۰۰٪</span>
+            <span id="clock">۰۰:۰۰</span>
+        </div>
+    </div>
+
+    <div class="icon-grid mt-10">
+        <div onclick="toggleWin('win-notes')" class="app-icon flex flex-col items-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
+                <i class="fas fa-sticky-note"></i>
+            </div>
+            <span class="text-xs mt-2 font-medium drop-shadow-lg">یادداشت</span>
+        </div>
+
+        <div onclick="toggleWin('win-calc')" class="app-icon flex flex-col items-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <span class="text-xs mt-2 font-medium drop-shadow-lg">حسابدار</span>
+        </div>
+
+        <div onclick="toggleWin('win-term')" class="app-icon flex flex-col items-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-gray-700 to-black rounded-2xl flex items-center justify-center text-3xl shadow-lg border border-white/20">
+                <i class="fas fa-terminal text-green-400"></i>
+            </div>
+            <span class="text-xs mt-2 font-medium drop-shadow-lg">ترمینال</span>
+        </div>
+
+        <div onclick="toggleWin('win-music')" class="app-icon flex flex-col items-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center text-3xl shadow-lg">
+                <i class="fas fa-music"></i>
+            </div>
+            <span class="text-xs mt-2 font-medium drop-shadow-lg">موزیک</span>
+        </div>
+    </div>
+
+    <div id="win-notes" class="window glass rounded-xl shadow-2xl overflow-hidden top-20 right-40 w-80">
+        <div class="bg-white/10 p-2 flex justify-between items-center handle">
+            <span class="text-xs mr-2">یادداشت روزانه</span>
+            <button onclick="toggleWin('win-notes')" class="text-red-500 ml-2">●</button>
+        </div>
+        <textarea class="w-full h-48 bg-transparent p-4 outline-none text-sm placeholder-white/40" placeholder="چیزی بنویس..."></textarea>
+    </div>
+
+    <div id="win-calc" class="window glass rounded-xl shadow-2xl overflow-hidden top-32 right-96 w-64">
+        <div class="bg-white/10 p-2 flex justify-between items-center">
+            <span class="text-xs mr-2">ماشین حساب</span>
+            <button onclick="toggleWin('win-calc')" class="text-red-500 ml-2">●</button>
+        </div>
+        <div class="p-4">
+            <input id="calc-display" readonly class="w-full bg-black/20 text-right p-2 mb-2 rounded text-xl font-mono">
+            <div class="grid grid-cols-4 gap-1">
+                <button onclick="calc(7)" class="bg-white/5 p-2 rounded hover:bg-white/10">7</button>
+                <button onclick="calc(8)" class="bg-white/5 p-2 rounded hover:bg-white/10">8</button>
+                <button onclick="calc(9)" class="bg-white/5 p-2 rounded hover:bg-white/10">9</button>
+                <button onclick="calc('/')" class="bg-orange-500/50 p-2 rounded">/</button>
+                <button onclick="calc('C')" class="col-span-2 bg-red-500/50 p-2 rounded">C</button>
+                <button onclick="calc(0)" class="bg-white/5 p-2 rounded">0</button>
+                <button onclick="calc('=')" class="bg-green-500/50 p-2 rounded">=</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-term" class="window glass rounded-xl shadow-2xl overflow-hidden top-60 right-20 w-[450px]">
+        <div class="bg-black/60 p-2 flex justify-between items-center">
+            <span class="text-xs mr-2 font-mono text-green-400">Terminal - root@user</span>
+            <button onclick="toggleWin('win-term')" class="text-red-500 ml-2">●</button>
+        </div>
+        <div class="p-4 bg-black/80 font-mono text-green-500 text-sm h-48 overflow-y-auto" id="term-body">
+            <div>Welcome to MyOS. Type 'help' for commands.</div>
+            <div class="flex gap-2">
+                <span>$</span>
+                <input id="term-input" class="bg-transparent border-none outline-none w-full text-white" autofocus>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 glass px-6 py-2 flex gap-6 rounded-3xl border border-white/20 z-[100]">
+        <div onclick="toggleWin('win-notes')" class="text-2xl hover:scale-125 transition cursor-pointer text-yellow-400"><i class="fas fa-edit"></i></div>
+        <div onclick="toggleWin('win-calc')" class="text-2xl hover:scale-125 transition cursor-pointer text-blue-400"><i class="fas fa-calculator"></i></div>
+        <div onclick="toggleWin('win-term')" class="text-2xl hover:scale-125 transition cursor-pointer text-green-400"><i class="fas fa-terminal"></i></div>
+        <div class="w-[1px] h-8 bg-white/20 mx-2"></div>
+        <div class="text-2xl hover:scale-125 transition cursor-pointer text-white/50"><i class="fas fa-cog"></i></div>
+    </div>
+
+    <script>
+        // ۱. مدیریت پنجره‌ها
+        function toggleWin(id) {
+            const el = document.getElementById(id);
+            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+            // آوردن پنجره به جلو
+            document.querySelectorAll('.window').forEach(w => w.style.zIndex = 10);
+            el.style.zIndex = 50;
+        }
+
+        // ۲. ساعت دیجیتال شمسی/فارسی
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'});
+        }, 1000);
+
+        // ۳. وضعیت باتری واقعی
+        navigator.getBattery?.().then(battery => {
+            const update = () => document.getElementById('battery-status').innerHTML = `<i class="fas fa-battery-full"></i> ${Math.floor(battery.level * 100)}٪`;
+            update();
+            battery.onlevelchange = update;
+        });
+
+        // ۴. منطق ماشین حساب
+        let calcVal = "";
+        function calc(v) {
+            const display = document.getElementById('calc-display');
+            if(v === '=') { calcVal = eval(calcVal); }
+            else if(v === 'C') { calcVal = ""; }
+            else { calcVal += v; }
+            display.value = calcVal;
+        }
+
+        // ۵. منطق ترمینال
+        const termInput = document.getElementById('term-input');
+        const termBody = document.getElementById('term-body');
+        termInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                const cmd = termInput.value.toLowerCase();
+                let res = "";
+                if(cmd === 'help') res = "Available: about, clear, date";
+                else if(cmd === 'about') res = "این یک سیستم عامل شخصی برای گیت‌هاب است.";
+                else if(cmd === 'clear') { termBody.innerHTML = ""; termInput.value = ""; return; }
+                else res = "Command not found: " + cmd;
+                
+                termBody.innerHTML += `<div>$ ${cmd}</div><div class="text-white mb-2">${res}</div>`;
+                termInput.value = "";
+                termBody.scrollTop = termBody.scrollHeight;
+            }
+        });
+
+        // قابلیت Drag (جابه‌جایی) پنجره‌ها - ساده شده
+        document.querySelectorAll('.window').forEach(win => {
+            let isDragging = false;
+            win.addEventListener('mousedown', () => {
+                document.querySelectorAll('.window').forEach(w => w.style.zIndex = 10);
+                win.style.zIndex = 50;
+            });
+        });
+    </script>
+</body>
+</html>
